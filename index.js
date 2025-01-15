@@ -26,7 +26,7 @@ gsap.set("#name-screen .container li", {
   ScrollTrigger.create({
     trigger: "body",
     start: "top top",
-    end: "40% top", // Reduced scroll distance needed
+    end: "20% top", // Reduced scroll distance needed
     scrub: 1,       // Smoother scrubbing
     pin: true,
     onUpdate: (self) => {
