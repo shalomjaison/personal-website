@@ -15,10 +15,12 @@ html, body {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body {
-    overflow-y: scroll;
+    /* overflow-y: scroll; */
+    position: relative;
 }
 
 section {
@@ -55,10 +57,7 @@ section {
     display: none;
 }
 
-body {
-    height: 200vh;
-    overflow-x: hidden;
-}
+
   
 #name-screen {
     height: 100vh;
@@ -75,10 +74,13 @@ body {
 #main-content {
     position: relative;
     z-index: 1;
-    background: white;
 }
   
-#main-content section {
+/* #main-content section {
     min-height: 100vh;
     padding: 2rem;
+} */
+
+.scroll-container {
+    height: 200vh;
 }
