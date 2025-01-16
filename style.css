@@ -1,9 +1,7 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Gilroy';
-    background-color: #DECDC3;
 }
 
 *::selection{
@@ -12,21 +10,26 @@
 }
 
 html, body {
-    height: 100%;
     width: 100%;
+    height: 100%;
 }
 
 body {
-    overflow-x:hidden;
-    /* overflow-y:hidden; */
+    /* font-family: 'Gilroy'; */
+    overflow-x: hidden;
+    /* overflow-y: auto; */
+    /* height: 200vh; */
+    background-color: #DECDC3;
+    /* padding-top: 80px; */
 }
 
-section {
+#name-screen .container {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    flex-direction: column;
 }
 
 .container h1 {
@@ -50,35 +53,133 @@ section {
     margin-right: 0; /* Remove right margin from the last item */
 }
 
-
 #main-content {
     display: none;
 }
 
-body {
-    height: 200vh;
-    overflow-x: hidden;
-}
-  
 #name-screen {
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #DECDC3;
+    background-color: #DECDC3;
     position: fixed;
+    /* top:0; */
     width: 100%;
     z-index: 10;
     flex-direction: column;
 }
-  
-#main-content {
-    position: relative;
-    z-index: 1;
-    background: white;
+
+#cursor {
+    height: 200px;
+    width: 200px;
+    background-color: rgb(193, 93, 27);
+    border-radius: 50%;
+    position: fixed;
+    z-index: 9;
+    pointer-events: none;
 }
-  
+
+#cursor.active {
+    scale: 1;
+}
+
+#main-content {
+    z-index: 1;
+    /* display: none; */
+    position: relative;
+    background-color: #DECDC3;
+}
+    
 #main-content section {
     min-height: 100vh;
     padding: 2rem;
+}
+
+#nav {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    position: sticky;
+    top: 0;  /* Added this */
+    left: 0;  /* Added this */
+    background-color: rgba(222, 205, 195, 0.8);  /* Semi-transparent version of #DECDC3 */
+    backdrop-filter: blur(10px);  /* Creates the frosted glass effect */
+    -webkit-backdrop-filter: blur(10px);  /* For Safari support */
+    z-index: 100;  /* Ensure it stays above other content */
+    border-bottom: 3px solid black;
+}
+
+
+#nav-part1 #logo1 h3 {
+    font-family: "Playfair Display", serif;
+    font-size: 40px;
+    padding-left: 21px;
+}
+
+
+#nav-part1 #logo2 h3 {
+    font-family: "Herr Von Muellerhoff", serif;
+    font-size: 37.75px;
+    padding-left: 35px;
+}
+
+
+#nav-part1 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#nav-part2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-right: 0px;
+    padding-right: 0px;
+}
+
+#links {
+    padding: 10px;
+}
+
+#links a {
+    text-decoration: none;
+    color:black;
+    font-family: "Playfair Display", serif;
+    /* margin: 0 15px; */
+    padding: 0px 30px;
+}
+
+#links a:last-child {
+    margin-right: 0; /* Remove right margin from the last item */
+    padding-right: 0;
+}
+
+#introduction {
+    position: relative;
+}
+
+#introduction .content {   
+    position: absolute; 
+    top: 25%;
+    left: 2%;
+}
+
+#introduction .content h2{
+    font-size: 75px;
+    font-family: "Playfair Display", serif;
+    font-weight: 100;
+}
+
+#introduction .content p {
+    width: 60%;
+    margin-top: 45px;
+    margin-left: 5px;
+    font-size: 25px;
+    font-family: "Roboto Slab", serif;
+    font-weight: 100;
 }
