@@ -18,9 +18,9 @@ function nameScreenAnimation() {
     })
     .to("#name-screen .container li", {
       opacity: 1,
-      stagger: 0.3
+      stagger: 0.7
     });
-
+    
 
   // Create scroll-triggered animation
   ScrollTrigger.create({
@@ -38,6 +38,8 @@ function nameScreenAnimation() {
       });
     },
     onLeave: () => {
+      initialSetup();
+
       document.getElementById("name-screen").style.display = "none";
       document.getElementById("name-screen").remove();
       document.getElementById("main-content").style.display = "block";
@@ -45,30 +47,97 @@ function nameScreenAnimation() {
       window.scrollTo(0,0);
       ScrollTrigger.getAll().forEach(st => st.kill()); // Clean up scroll triggers
       setTimeout(() => {
-        initializeNavAnimations();
+        scrollProgress();
+        mainContentAnimations();
+        navAnimations();
         cursorAnimation();
       }, 100);
     }
   });
 
-  initialTl.to("#main-content #introduction .content h2", {
-    opacity: 1,
-    duration: 8
-  });
 }
 
-function initializeNavAnimations() {
-  gsap.set("#logo2", { // Hide the second logo initially
+function initialSetup() {
+  gsap.set("#introduction .content #stat1", {
+    opacity: 0,
+    y: 100
+  });
+
+  gsap.set("#introduction .content #stat2", {
+    opacity: 0,
+    y: 150,
+    x: 0, 
+    // scale: 0
+  });
+
+  gsap.set("#introduction .content #stat3", {
+    opacity: 0
+  });
+
+  gsap.set(".logo2", { // Hide the second logo initially
     opacity: 0,
     display: "none"
   });
   
-  gsap.set("#logo1", { // Ensure first logo is visible
-    opacity: 1,
+  gsap.set(".logo1", { // Ensure first logo is visible
+    opacity: 0,
     display: "block"
   });
-  
-  
+
+  gsap.set("#nav-part2 #links a", {
+    opacity: 0
+  });
+
+  gsap.set(".progress-container", {
+    opacity: 0, display: "none"
+  })
+}
+
+function mainContentAnimations() {
+
+  const mainContentTl = gsap.timeline({
+    defaults: {
+      duration: 1,
+      ease: "power2.out"
+    }
+  });
+
+  mainContentTl.to("#main-content #introduction .content #stat1", {
+    opacity: 1,
+    y: 0,
+    duration: 1.2
+  })
+  .to("#main-content #introduction .content #stat2", {
+    opacity: 1,
+    y: 0,
+    x: 0,
+    duration: 1.2,
+    scale: 1
+  }, "=-0.4")
+  .to("#main-content #introduction .content #stat3", {
+    opacity: 1,
+    y: 0,
+    duration: 1.5,
+    delay: 0.2
+  })
+  .to(".logo1", {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+  })
+  .to("#nav-part2 #links a", {
+    opacity: 1,
+    y: 0,
+    duration: 0.7
+  })
+  .to(".progress-container", {
+    opacity: 1,
+    display: "block"
+  })
+}
+
+function navAnimations() {
+
   // Create the scroll trigger animation
   ScrollTrigger.create({
     trigger: "#main-content",
@@ -76,13 +145,13 @@ function initializeNavAnimations() {
     start: "5% top", // Trigger when page is scrolled 10%
     onEnter: () => {
         // Animate logo switch
-        gsap.to("#logo1", {
+        gsap.to(".logo1", {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
-                gsap.set("#logo1", { display: "none" });
-                gsap.set("#logo2", { display: "block" });
-                gsap.to("#logo2", {
+                gsap.set(".logo1", { display: "none" });
+                gsap.set(".logo2", { display: "block" });
+                gsap.to(".logo2", {
                     opacity: 1,
                     duration: 0.3
                 });
@@ -91,13 +160,13 @@ function initializeNavAnimations() {
     },
     onLeaveBack: () => {
         // Animate back to first logo when scrolling up
-        gsap.to("#logo2", {
+        gsap.to(".logo2", {
             opacity: 0,
             duration: 0.3,
             onComplete: () => {
-                gsap.set("#logo2", { display: "none" });
-                gsap.set("#logo1", { display: "block" });
-                gsap.to("#logo1", {
+                gsap.set(".logo2", { display: "none" });
+                gsap.set(".logo1", { display: "block" });
+                gsap.to(".logo1", {
                     opacity: 1,
                     duration: 0.3
                 });
@@ -106,13 +175,6 @@ function initializeNavAnimations() {
     }
   });
 }
-
-gsap.set("#main-content #introduction .content h2", {
-  opacity: 0
-});
-
-nameScreenAnimation();
-
 
 function cursorAnimation() {
   gsap.set("#cursor", {
@@ -147,4 +209,28 @@ function cursorAnimation() {
 
 }
 
+function scrollProgress() {
+  const progressBar = document.querySelector('.progress-bar');
+  
+  // Calculate scroll progress
+  function updateProgress() {
+    const winScroll = window.pageYOffset || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    
+    if (progressBar) {
+      progressBar.style.width = scrolled + "%";
+    }
+  }
+
+  // Add scroll event listener
+  window.addEventListener('scroll', updateProgress);
+
+  // Initial call to set progress bar on page load
+  updateProgress();
+}
+
+
+
+nameScreenAnimation();
 

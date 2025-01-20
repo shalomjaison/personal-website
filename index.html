@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Herr+Von+Muellerhoff&family=Playfair+Display:ital@0;1&family=Roboto+Slab:wght@200&family=Roboto:ital,wdth,wght@0,75,100;1,75,100&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
   <body>
   <section id="name-screen">
     <div class="container">
@@ -24,36 +25,44 @@
     <div id="cursor"></div>
     <div id="nav">
       <div id="nav-part1">
-        <div id="logo1">
+        <div class="logo1">
           <h3>Shalom Jaison</h3>
         </div>
-        <div id="logo2" style="display: none">
+        <div class="logo2" style="display: none">
           <h3>SJ</h3>
         </div>
       </div>
 
       <div id="nav-part2">
         <div id="links">
-          <a href="#">Home</a>
-          <a href="#">Projects</a>
-          <a href="#">Research Experience</a>
-          <a href="#">Resume</a>
-          <a href="#">Get in Touch</a>
+          <!-- <a href="#">Home</a> -->
+          <!-- <a href="#">Projects</a> -->
+          <!-- <a href="#">Research Experience</a> -->
+          <!-- <a href="#">Get in Touch</a> -->
+          <!-- <div class="logo1"> -->
+          <a href="./Shalom_Jaison_Resume.pdf">Resume</a>
+          <!-- </div> -->
+          <!-- <div class="logo2" style="display: none">
+            <a href="./Shalom_Jaison_Resume.pdf"><i class="ri-article-line"></i></a>
+          </div> -->
         </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-bar"></div>
       </div>
     </div>
 
     <section id="introduction">
       <div class="content">
-        <h2>Designing Simplicity.</h2>
-        <h2>Building Impact.</h2>
-        <p>Hi, I'm Shalom—a front-end developer and designer passionate about creating intuitive, impactful digital experiences.</p>
+        <h2 id="stat1">Designing Simplicity.</h2>
+        <h2 id="stat2">Building Impact.</h2>
+        <p id="stat3">Hi, I'm Shalom—a front-end developer and designer passionate about creating intuitive, impactful digital experiences.</p>
       </div>
     </section>
 
     <section id="tech-projects">
       <div class="container">
-          <h2>Projects</h2>
+          <h1 id="stat4">Projects</h1>
           <div class="project" id="project-1">
             <h3>Project 1</h3>
             <p>Description of Project 1</p>
@@ -70,16 +79,16 @@
 
     <section id="res-experience">
       <div class="container">
-        <h2>Research Experience</h2>
+        <h1>Research</h1>
         <ul>
           <li>Job 1</li>
         </ul>
       </div>
     </section>
 
-    <section id="about">
+    <section id="contact">
       <div class="container">
-        <h2>About Me</h2>
+        <h1>Get in touch!</h1>
         <p>I am passionate about technology, productivity, and goal-setting.</p>
       </div>
     </section>
