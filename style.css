@@ -47,6 +47,7 @@
     --bg-darkside: #5D7280;
 }
 
+
 * {
     margin: 0;
     padding: 0;
@@ -111,16 +112,10 @@ body {
     position: relative;
     width: 100%;
     flex-direction: column;
-    transition: 
-        background-color 0.5s ease,
-        color 0.5s ease;
 }
 
 #main-content {
     background-color: var(--bg-primary); /* Light Cream */
-    transition: 
-    background-color 0.5s ease,
-    color 0.5s ease;
 }
 
 #main-content #introduction {
@@ -189,6 +184,7 @@ body {
     justify-content: space-between;
     margin-right: 30px;
 }
+
 
 .switch {
     position: relative;
@@ -362,6 +358,7 @@ body {
     top: 20%;
 }
 
+
 #links a {
     padding-right: 15px;
     color: var(--text-primary);
@@ -378,7 +375,7 @@ body {
 
 #introduction {
     position: relative;
-    background-color: var(--bg-primary); 
+    background-color: var(--bg-primary);
     transition: 
     background-color 0.5s ease,
     color 0.5s ease;
@@ -430,8 +427,7 @@ body {
     will-change: transform;
     backface-visibility: hidden;
     transition: 
-        background-color 0.5s ease,
-        color 0.1s ease;
+    background-color 0.5s ease;
 }
 
 .container1 {
@@ -439,7 +435,7 @@ body {
     width: 100%;
     height: 100vh;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     gap: 2rem;
@@ -473,28 +469,42 @@ body {
 }
 
 .card {
-    background-color: var(--bg-card);
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    background-color: var(--bg-card); /* Light Blue for cards */
+    border: 1px solid var(--bg-cardborder); /* Rich Teal borders */
     padding: 20px;
+    height: 400px;
     width: 400px;
-    height: 350px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 2;
+    position: relative;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s, box-shadow 0.3s,
+    background-color 0.5s ease;
+    margin: 46px;
+}
+
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 12px 16px rgba(0, 0, 0, 0.3);
 }
 
 .card h3 {
-    font-size: 20px;
-    font-weight: bold;
+    font-family: "Playfair Display", serif;
+    color: var(--text-primary); /* Rich Teal text */
     margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .card h4 {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 5px;
+    font-family: "Playfair Display", serif;
 }
 
 .card p {
+    font-family: "Roboto Slab", serif;
     font-size: 14px;
     margin-bottom: 10px;
 }
@@ -503,8 +513,8 @@ body {
     font-size: 14px;
     margin-bottom: 10px;
     padding-left: 20px;
+    font-family: "Roboto Slab", serif;
 }
-
 
 #res-experience {
     background-color: var(--bg-primary);
@@ -517,13 +527,15 @@ body {
     backface-visibility: hidden;
     transition: 
     background-color 0.5s ease,
-    color 0.1s ease;
+    color 0.5s ease;
+
 }
 
 #res-experience .container2 h1 {
     right: -168%;
     transition: 
     color 0.5s ease;
+
 }
 
 #contact {
