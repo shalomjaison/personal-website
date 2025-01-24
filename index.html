@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shalom Jaison - Personal Website</title>
   <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="dark.css"> -->
+  <!-- <link rel="stylesheet" href="design2.css"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Herr+Von+Muellerhoff&family=Playfair+Display:ital@0;1&family=Roboto+Slab:wght@200&family=Roboto:ital,wdth,wght@0,75,100;1,75,100&display=swap" rel="stylesheet">
@@ -34,17 +36,22 @@
       </div>
 
       <div id="nav-part2">
+        <label for="switch" class="switch">
+          <input type="checkbox" id="switch"/>
+          <div class="sunmoon">
+            <div class="darkside"></div>
+          </div>
+          <div class="border"></div>
+          <div class="clouds">
+            <img src="cloud_1.svg" alt="" class="cloud cloud-1" />
+            <img src="cloud_2.svg" alt="" class="cloud cloud-2" />
+            <img src="cloud_3.svg" alt="" class="cloud cloud-3" />
+            <img src="cloud_4.svg" alt="" class="cloud cloud-4" />
+            <img src="stars.svg" alt="" class="stars" />
+          </div>
+        </label>
         <div id="links">
-          <!-- <a href="#">Home</a> -->
-          <!-- <a href="#">Projects</a> -->
-          <!-- <a href="#">Research Experience</a> -->
-          <!-- <a href="#">Get in Touch</a> -->
-          <!-- <div class="logo1"> -->
           <a href="./Shalom_Jaison_Resume.pdf">Resume</a>
-          <!-- </div> -->
-          <!-- <div class="logo2" style="display: none">
-            <a href="./Shalom_Jaison_Resume.pdf"><i class="ri-article-line"></i></a>
-          </div> -->
         </div>
       </div>
       <div class="progress-container">
@@ -111,6 +118,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+  <script src="theme-switcher.js"></script>
   <script src="index.js"></script>
 </body>
 </html>

@@ -1,23 +1,79 @@
+:root {
+    --bg-primary: #DECDC3;
+    --text-primary: #254E58;
+    --text-secondary: #254E58;
+    --selection-bg: #90AEAD;
+    --selection-text: #254E58;
+    --intro-highlight-text: black;
+    --main-highlight-text: black;
+    --main-highlight-text: #254E58;
+    --contact-highlight-text: black;
+    --bg-card: #CDBBA7;
+    --bg-cardborder: #CDBBA7;
+    --btn-border: black;
+    --btn-text: black;
+    --hver-bg-btn: #254E58;
+    --hver-btn: #DECDC3;
+    --bg-footer: #254E58;
+    --text-footer: #DECDC3;
+    --bg-theme: linear-gradient(to bottom, #FBE9D0, #CDBBA7);
+    --sunmoon-size: 10px;
+    --switch-padding: 1px;
+    --border-width: 2.9px;
+    --border-gradient: linear-gradient(to bottom, #CDBBA7, #CDBBB1);
+    --bg-darkside: #ffc187;
+}
+
+.dark {
+    --bg-primary: #113946;
+    --text-primary: #FBE9D0;
+    --text-secondary: #AFDDE5;
+    --selection-bg: #874F41;
+    --selection-text: #FBE9D0;
+    --intro-highlight-text: #CDBBA7;
+    --main-highlight-text: #254E58;
+    --main-highlight-text: #FBE9D0;
+    --contact-highlight-text: #FBE9F0;
+    --bg-card: #5A5A5A;
+    --bg-cardborder: #254E58;
+    --btn-border: #AFDDE5;
+    --btn-text: #FBE9D0;
+    --hver-bg-btn: #254E58;
+    --hver-btn: #113946;
+    --bg-footer: #254E58;
+    --text-footer: #FBE9D0;
+    --bg-theme: linear-gradient(to bottom, #254E58, #6c7384);
+    --border-gradient: linear-gradient(to bottom, #AFDDE5, #AFDDE5);
+    --bg-darkside: #5D7280;
+}
+
+
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
-*::selection{
-    color: white;
-    background-color: black;
+*::selection {
+    color: var(--selection-text);
+    background-color: var(--selection-bg);
 }
 
 html, body {
     width: 100%;
     height: 100%;
-} */
+} 
 
 body {
     overflow-y: hidden;
     overflow-x: hidden;
-    background-color: #DECDC3;
+    background-color: var(--bg-primary); /* Light Cream background */
+    color: var(--text-primary); /* Rich Teal text */
+
 }
 
 #name-screen .container {
@@ -32,8 +88,8 @@ body {
 .container h1 {
     font-family: "Playfair Display", serif;
     font-size: 150px;
+    color: var(--text-primary); /* Rich Teal for header */
 }
-
 
 #name-screen ul {
     display: flex;
@@ -44,33 +100,27 @@ body {
     margin-right: 25px;
     list-style-type: none;
     font-family: "Roboto Slab", serif;
+    color: var(--text-primary);
 }
 
 #name-screen li:last-child {
     margin-right: 0;
 }
-/* 
-#main-content {
-    display: none;
-} */
 
 #name-screen {
+    background-color: var(--bg-primary); /* Light Cream */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #DECDC3;
     position: relative;
     width: 100%;
-    /* z-index: 10; */
     flex-direction: column;
 }
 
 #main-content {
-    /* z-index: 0; */
-    /* position: relative; */
-    background-color: #DECDC3;
-} 
+    background-color: var(--bg-primary); /* Light Cream */
+}
 
 #main-content #introduction {
     height: 100vh;
@@ -88,7 +138,7 @@ body {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: rgba(222, 205, 195, 0.2);  
+    background-color: var(--bg-primary); /* Light Blue for nav bar */
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     z-index: 100;
@@ -97,31 +147,32 @@ body {
 .progress-container {
     width: 100%;
     height: 3px;
-    background: rgba(0, 0, 0, 0.1);
+    background: var(--bg-primary); /* Light Blue for progress container */
     position: absolute;
-    bottom: -3px;  /* Aligns with bottom border */
+    bottom: -3px;  
     left: 0;
+    transition: all 0.5s ease;
 }
 
 .progress-bar {
     height: 100%;
-    background: black;  /* Or any color you prefer */
+    background: var(--text-primary); /* Warm neutral for progress bar */
     width: 0%;
 }
-
 
 #nav-part1 .logo1 h3 {
     font-family: "Playfair Display", serif;
     font-size: 30px;
+    color: var(--text-primary);
+    padding-left: 29px;
 }
-
 
 #nav-part1 .logo2 h3 {
     font-family: "Herr Von Muellerhoff", serif;
     font-size: 28px;
     padding-left: 35px;
+    color: var(--text-primary);
 }
-
 
 #nav-part1 {
     display: flex;
@@ -135,23 +186,192 @@ body {
     margin-right: 30px;
 }
 
-#links a{
-    padding-right: 15px;
-    font-size: larger;
+.switch {
+    position: relative;
+    padding: 0 0;
+    margin: 0 0;
+    margin-top: 8px;
+    width: 30px;
+    height: 11px;
+    border-radius: 50px;
+    cursor: pointer;
+    background: var(--bg-theme);
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch::before {
+    content: "";
+    position: absolute;
+    width: 30px;
+    height: 13px;
+    opacity: 0;
+    border-radius: 50px;
+    background: var(--bg-theme);
+    transition: all 0.5s ease;
+}
+
+.dark .switch::before {
+    opacity: 1;
+}
+
+.sunmoon {
+    position: absolute;
+    width: var(--sunmoon-size);
+    height: var(--sunmoon-size);
+    border-radius: 60%;
+    background-color: #ffc187;
+    top: 5%;
+    left: var(--switch-padding);
+    transition: all 0.5s ease;
+    box-shadow: 0 0 11.7px 0 #ffc187,
+    0 0 20px 0 #ffc18768 
+    -2px -2px 5px 0 #ffab5c inset;
+}
+
+.dark .sunmoon{
+    left: calc(100% - var(--sunmoon-size) - var(--switch-padding));
+    background-color: #dee5f3;
+    box-shadow: 0px 0px 15px 0px #dee5f3
+}
+
+.darkside {
+    position: absolute;
+    top: 0.1px;
+    left: 0px;
+    width: 80%;
+    height: 85%;
+    border-radius: 60%;
+    background-color: var(--bg-darkside);
+    transition: all 0.5s ease;;
 }
 
 
+.border {
+    position: absolute;
+    top: calc(var(--border-width)*-0.5);
+    left: calc(var(--border-width)* -0.5);
+    width: calc(100% + var(--border-width));
+    height: calc(100% + var(--border-width));
+    background: var(--border-gradient);
+    border-radius: 100px;
+    z-index: -1;
+    transition: all 0.5s ease;
+}
+
+.border::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    border-radius: 100px;
+    background: var(--border-dark-gradient);
+    transition: all 0.5s ease;
+}
+
+.dark .border::after {
+    opacity: 1;
+}
+
+.clouds {
+    border-radius: 100px;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    width: 60%;
+    transition: all 0.5s ease;
+}
+
+.cloud-1 {
+    bottom: -55%;
+    left: 0;
+}
+
+.cloud-2 {
+    bottom: -25%;
+    left: 25px;
+}
+
+.cloud-3 {
+    bottom: -40%;
+    right: 0px;
+}
+
+.cloud-4 {
+    bottom: -16%;
+    right: -25px;
+}
+
+
+.dark .cloud-1 {
+    bottom: -55%;
+    left: -50%;
+    transition: all 0.7s ease;
+}
+
+.dark .cloud-2 {
+    bottom: -15%;
+    left: -110px;
+    transition: all 0.7s ease;
+}
+
+.dark .cloud-3 {
+    bottom: -15%;
+    right: -110px;
+}
+
+.dark .cloud-4 {
+    bottom: -5%;
+    right: -110px;
+    transition: all 0.7s ease;
+}
+
+.stars {
+    position: absolute;
+    top: 100%;
+    left: 6%;
+    font-size: 3px;
+    transform: translateY(-20%);
+    pointer-events: none;
+    transition: all 0.5s ease;
+    height: 100%;
+}
+
+.dark .stars {
+    top: 20%;
+}
+
 #links a {
+    padding-right: 15px;
+    color: var(--text-primary);
     text-decoration: none;
-    color:black;
     font-family: "Playfair Display", serif;
-    font-size: 15px;
+    font-size: 18px;
     padding: 0px 0px;
     margin: 0px 0px;
 }
 
+#nav a:hover {
+    color: var(--text-primary); /* Warm Brown on hover */
+}
+
 #introduction {
     position: relative;
+    background-color: var(--bg-primary); /* Light Cream for intro */
 }
 
 #introduction .content {   
@@ -160,10 +380,11 @@ body {
     left: 2%;
 }
 
-#introduction .content h2{
+#introduction .content h2 {
     font-size: 75px;
     font-family: "Playfair Display", serif;
     font-weight: 100;
+    color: var(--intro-highlight-text); /* Light Blue for heading */
 }
 
 #introduction .content p {
@@ -173,6 +394,7 @@ body {
     font-size: 25px;
     font-family: "Roboto Slab", serif;
     font-weight: 100;
+    color: var(--text-primary);
 }
 
 #scroll-progress {
@@ -187,14 +409,13 @@ body {
 
 #tech-projects {
     position: relative;
-    background-color: #CDBBA7;
+    background-color: var(--bg-primary);
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    transform: translateZ(0); /* Forces GPU acceleration */
+    transform: translateZ(0);
     will-change: transform;
     backface-visibility: hidden;
-    /* margin-bottom: 100px; */
 }
 
 .container1 {
@@ -206,7 +427,7 @@ body {
     justify-content: center;
     gap: 2rem;
     padding: 0 2rem;
-    z-index: 2; /* Ensure cards are above the text */
+    z-index: 2;
 }
 
 .container2 {
@@ -215,8 +436,8 @@ body {
     height: 100%;
     top: 0;
     left: 0;
-    z-index: 1; /* Background text below cards */
-    pointer-events: none; /* Prevents text from interfering with card interaction */
+    z-index: 1;
+    pointer-events: none;
 }
 
 .container2 h1 {
@@ -228,12 +449,13 @@ body {
     right: -145%;
     color: rgba(0, 0, 0, 0.9);
     white-space: nowrap;
-    will-change: transform; /* Optimizes performance */
+    will-change: transform;
+    color: var(--main-highlight-text);
 }
 
-
 .card {
-    background-color: #DECDC3;
+    background-color: var(--bg-card); /* Light Blue for cards */
+    border: 1px solid var(--bg-cardborder); /* Rich Teal borders */
     padding: 2rem;
     height: 300px;
     width: 400px;
@@ -252,6 +474,7 @@ body {
 
 .card h3 {
     font-family: "Playfair Display", serif;
+    color: var(--text-primary); /* Rich Teal text */
 }
 
 .card p {
@@ -259,12 +482,12 @@ body {
 }
 
 #res-experience {
-    background-color: #113946;
+    background-color: var(--bg-primary);
     position: relative;
     height: 100vh;
     width: 100%;
     overflow: hidden;
-    transform: translateZ(0); /* Forces GPU acceleration */
+    transform: translateZ(0);
     will-change: transform;
     backface-visibility: hidden;
 }
@@ -274,7 +497,7 @@ body {
 }
 
 #contact {
-    background-color: #CDBBA7;
+    background-color: var(--bg-primary); /* Light Cream for contact section */
     position: relative;
     display: flex;
     height: 100vh;
@@ -287,9 +510,10 @@ body {
     width: 50%;
     top: 15%;
     left: 33%;
+    color: var(--highlight-text);
 }
 
-#contact p{
+#contact p {
     position: absolute;
     justify-content: center;
     top: 38%;
@@ -298,6 +522,7 @@ body {
     margin-top: 20px;
     font-size: 30px;
     font-family: "Roboto Slab", serif;
+    color: var(--text-secondary);
 }
 
 #contact .container4 {
@@ -306,32 +531,37 @@ body {
     left: 38.25%;
 }
 
-#contact .container3 h1{
+#contact .container3 h1 {
     font-family: "Playfair Display", serif;
     font-size: 8vw;
     white-space: nowrap;
+    color: var(--contact-highlight-text);
 }
 
 .btn {
-    margin:0 10px;
-    background-color: black; /* Blue background */
-    border: none; /* Remove borders */
+    transition: none;
+    color: var(--btn-text);
+    margin: 0 10px;
+    background-color: transparent;
+    border: 2px solid var(--btn-border);
     border-radius: 8px;
-    color: white; /* White text */
-    padding: 12px 16px; /* Some padding */
-    font-size: 56px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
+    padding: 12px 16px;
+    font-size: 56px;
+    cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #113946;
-    color: black;
+    transition: none;
+    background-color: var(--hver-bg-btn); /* Muted Neutral for hover */
+    color: var(--hver-btn);
 }
 
 footer {
-    background-color: #CDBBA7;
+    background-color: var(--bg-footer);
+    color: var(--text-footer);
     font-size: 15px;
     display: flex;
     justify-content: center;
     font-family: "Roboto Slab", serif;
+    padding: 1rem 0;
 }
