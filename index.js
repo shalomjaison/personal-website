@@ -32,7 +32,12 @@ function initialSetup() {
   gsap.set(".progress-container", {
     opacity: 0, display: "none"
   });
+  
+  gsap.set(".switch", {
+    opacity: 0, y: 10
+  });
 }
+
 function nameScreenAnimation() {
   document.body.style.overflow = 'hidden';
   gsap.set("#main-content", { 
@@ -111,16 +116,21 @@ function mainContentAnimations() {
       opacity: 1,
       y: 0,
       duration: 0.7,
-  })
+  }, "=-0.2")
   .to("#nav-part2 #links a", {
       opacity: 1,
       y: 0,
       duration: 0.7
-  })
+  }, "=-0.7")
+  .to(".switch", {
+    opacity: 1,
+    y:0,
+    duration: 0.7
+  }, "=-0.7")
   .to(".progress-container", {
       opacity: 1,
       display: "block"
-  });
+  }, "=-0.7");
   navAnimations();
   scrollProgress();
   cursorAnimation();
