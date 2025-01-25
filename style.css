@@ -435,6 +435,7 @@ body {
     width: 100%;
     height: 100vh;
     display: flex;
+    /* flex-wrap: wrap; */
     align-items: center;
     justify-content: center;
     gap: 2rem;
@@ -487,7 +488,7 @@ body {
 }
 
 .card:hover {
-    transform: scale(1.5);
+    transform: scale(1.02);
     box-shadow: 0px 12px 16px rgba(0, 0, 0, 0.3);
 }
 
@@ -612,4 +613,196 @@ footer {
     justify-content: center;
     font-family: "Roboto Slab", serif;
     padding: 1rem 0;
+}
+
+
+@media (max-width: 600px) {
+    #nav-part1 .logo1 h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 30px;
+        color: var(--text-primary);
+        padding-left: 10px;
+    }
+    
+    #nav-part1 .logo2 h3 {
+        font-family: "Herr Von Muellerhoff", serif;
+        font-size: 28px;
+        padding-left: 20px;
+        color: var(--text-primary);
+    }
+
+
+    #introduction {
+        position: relative;
+        background-color: var(--bg-primary);
+        transition: 
+        background-color 0.5s ease,
+        color 0.5s ease;
+    }
+
+    #main-content #introduction {
+        height: 60vw;
+    }
+    
+    #introduction .content {   
+        position: absolute; 
+        top: 25%;
+        left: 2%;
+        transition: 
+        background-color 0.5s ease,
+        color 0.5s ease;
+    }
+    
+    #introduction .content h2 {
+        font-size: 55px;
+        padding: 5px 0;
+        font-family: "Playfair Display", serif;
+        font-weight: 100;
+        color: var(--intro-highlight-text); /* Light Blue for heading */
+    }
+    
+    #introduction .content p {
+        width: 70%;
+        margin-top: 25px;
+        margin-left: 5px;
+        font-size: 20px;
+        font-family: "Roboto Slab", serif;
+        font-weight: 100;
+        color: var(--text-primary);
+    }
+
+    #main-content #tech-projects {
+        height: 70vh !important;
+    }
+ 
+    .container1 {
+        height: 50vh;
+        margin: 0;
+        top: 30%;
+    }
+
+    .container2 {
+        position: absolute;
+        width: 100%;
+        height: 70%;
+        top: 20%;
+        left: 0;
+        z-index: 1;
+        pointer-events: none;
+        transition: 
+        background-color 0.5s ease,
+        color 0.5s ease;
+    }
+
+    .container2 h1 {
+        font-size: 70vw;
+        right: -255%;
+        white-space: nowrap;
+    }
+
+    .card {
+        padding: 10px;
+        height: 380px;
+        width: 500px;
+        margin: 12px;
+        top: 3%;
+    }
+    
+    .card:hover {
+        transform: scale(1.02);
+        box-shadow: 0px 12px 16px rgba(0, 0, 0, 0.3);
+    }
+    
+    .card h3 {
+        margin-bottom: 6px;
+        font-size: 15px;
+        white-space: wrap;
+    }
+    
+    .card h4 {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+    
+    .card p {
+        font-size: 9px;
+        margin-bottom: 5px;
+    }
+    
+    .card ul {
+        font-size: 9px;
+        margin-bottom: 5px;
+        padding-left: 13px;
+    }
+    
+    #res-experience .container2 h1 {
+        right: -290%;
+    }
+
+    #res-experience .card {
+        height: 280px;
+        width: 250px;
+    }
+
+
+    #contact {
+        background-color: var(--bg-primary); /* Light Cream for contact section */
+        position: relative;
+        display: flex;
+        height: 70vh;
+        width: 100%;
+        padding: 2rem;
+        transition: 
+        background-color 0.5s ease,
+        color 0.5s ease;
+    }
+    
+    #contact .container3 {
+        position: absolute;
+        width: 50%;
+        height: 100%;
+        top: 10%;
+        left: 33%;
+        color: var(--highlight-text);
+    }
+    
+    #contact p {
+        position: absolute;
+        justify-content: center;
+        top: 35%;
+        left: 5%;
+        width: 90%;
+        white-space: wrap;
+        margin-top: 20px;
+        font-size: 19px;
+        font-family: "Roboto Slab", serif;
+        color: var(--text-secondary);
+    }
+    
+    #contact .container4 {
+        position: absolute;
+        top: 60%;
+        left: 18.25%;
+    }
+    
+    #contact .container3 h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 16vw;
+        position: absolute;
+        left: -45%;
+        white-space: nowrap;
+        color: var(--contact-highlight-text);
+    }
+    
+    .btn {
+        transition: none;
+        color: var(--btn-text);
+        margin: 0 10px;
+        background-color: transparent;
+        border: 2px solid var(--btn-border);
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 56px;
+        cursor: pointer;
+    }
 }

@@ -300,19 +300,19 @@ function setupResearchAnimation() {
     });
     
     // Optional: Add a subtle parallax effect to the cards
-    const cards = gsap.utils.toArray('.card');
-    cards.forEach((card, i) => {
-        gsap.to(card, {
-            xPercent: 4,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#res-experience",
-                start: "top top",
-                end: "+=100%",
-                scrub: true
-            }
-        });
-    });
+    // const cards = gsap.utils.toArray('.card');
+    // cards.forEach((card, i) => {
+    //     gsap.to(card, {
+    //         xPercent: 4,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: "#res-experience",
+    //             start: "top top",
+    //             end: "+=100%",
+    //             scrub: true
+    //         }
+    //     });
+    // });
 }
 
 function contactAnimation() {
