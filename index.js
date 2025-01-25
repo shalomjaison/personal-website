@@ -1,3 +1,4 @@
+
 function initialSetup() {
     gsap.set("#introduction .content #stat1", {
       opacity: 0,
@@ -37,6 +38,7 @@ function initialSetup() {
         opacity: 0, y: 10
     });
 }
+
 function nameScreenAnimation() {
     document.body.style.overflow = 'hidden';
     gsap.set("#main-content", { 
@@ -242,7 +244,7 @@ function setupProjectsAnimation() {
             end: "+=100%",    // End after scrolling 100% of section height
             pin: true,        // Pin the section
             scrub: 3,      // Smooth scrubbing
-            anticipatePin: 2,  // Helps prevent jank when pinning
+            anticipatePin: 1,  // Helps prevent jank when pinning
             invalidateOnRefresh: true, // Recalculate on resize
             // markers: true,    // Helpful for debugging - remove in production
             onUpdate: (self) => {
@@ -257,19 +259,19 @@ function setupProjectsAnimation() {
     });
     
     // Optional: Add a subtle parallax effect to the cards
-    const cards = gsap.utils.toArray('.card');
-    cards.forEach((card, i) => {
-        gsap.to(card, {
-            xPercent: 4,
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#tech-projects",
-                start: "top top",
-                end: "+=100%",
-                scrub: true
-            }
-        });
-    });
+    // const cards = gsap.utils.toArray('.card');
+    // cards.forEach((card, i) => {
+    //     gsap.to(card, {
+    //         xPercent: 4,
+    //         ease: "none",
+    //         scrollTrigger: {
+    //             trigger: "#tech-projects",
+    //             start: "top top",
+    //             end: "+=100%",
+    //             scrub: true
+    //         }
+    //     });
+    // });
 }
 
 function setupResearchAnimation() {
