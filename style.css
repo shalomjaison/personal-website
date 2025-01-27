@@ -617,17 +617,61 @@ footer {
 
 
 @media (max-width: 600px) {
+    #name-screen .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        flex-direction: column;
+    }
+    
+    .container h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 6rem;
+        color: var(--text-primary); /* Rich Teal for header */
+    }
+    
+    #name-screen ul {
+        display: flex;
+        font-size: 20px;
+    }
+    
+    #name-screen li {
+        margin-top: 4vh;
+        margin-right: 4vh;
+        list-style-type: none;
+        font-family: "Roboto Slab", serif;
+        color: var(--text-primary);
+    }
+    
+    #name-screen li:last-child {
+        margin-right: 0;
+    }
+    
+    #name-screen {
+        top: 13%;
+        background-color: var(--bg-primary); /* Light Cream */
+        height: 70vh;
+        width: 20vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        width: 100%;
+        flex-direction: column;
+    }
+
     #nav-part1 .logo1 h3 {
         font-family: "Playfair Display", serif;
-        font-size: 30px;
+        font-size: 1.25rem;
         color: var(--text-primary);
-        padding-left: 10px;
+        padding-left: 0.3rem;
     }
     
     #nav-part1 .logo2 h3 {
         font-family: "Herr Von Muellerhoff", serif;
-        font-size: 28px;
-        padding-left: 20px;
+        font-size: 1.25rem;
+        padding-left: 0.85rem;
         color: var(--text-primary);
     }
 
@@ -641,7 +685,7 @@ footer {
     }
 
     #main-content #introduction {
-        height: 60vw;
+        height: 85vw;
     }
     
     #introduction .content {   
@@ -654,38 +698,63 @@ footer {
     }
     
     #introduction .content h2 {
-        font-size: 55px;
-        padding: 5px 0;
+        font-size: 2.3rem;
+        padding: 0.3rem 0;
         font-family: "Playfair Display", serif;
         font-weight: 100;
         color: var(--intro-highlight-text); /* Light Blue for heading */
     }
     
     #introduction .content p {
-        width: 70%;
-        margin-top: 25px;
-        margin-left: 5px;
-        font-size: 20px;
+        width: 80%;
+        margin-top: 3.7rem;
+        margin-left: 0.3rem;
+        font-size: 0.95rem;
         font-family: "Roboto Slab", serif;
         font-weight: 100;
         color: var(--text-primary);
     }
 
+    #nav-part2 {
+        margin-right: 0.1rem;
+        padding: 0px 0px;
+    }
+
+    #nav-part2 .switch {
+        position: absolute;
+        left: 70%;
+        top: 24%;
+        width: 2rem;
+        height: 0.55rem;
+    }
+
+    #nav-part2 #links a {
+        position: absolute;
+        top: 32%;
+        left: 85%;
+        color: var(--text-primary);
+        text-decoration: none;
+        font-family: "Playfair Display", serif;
+        font-size: 0.75rem;
+        margin: 0px 0px;
+        padding-top: 1px;
+    }
+
     #main-content #tech-projects {
-        height: 70vh !important;
+        height: 80vh !important;
     }
  
     .container1 {
-        height: 50vh;
+        height: 60vh;
         margin: 0;
-        top: 30%;
+        top: 20%;
     }
 
     .container2 {
         position: absolute;
         width: 100%;
-        height: 70%;
-        top: 20%;
+        height: 60vh;
+        top: 5%;
         left: 0;
         z-index: 1;
         pointer-events: none;
@@ -695,16 +764,17 @@ footer {
     }
 
     .container2 h1 {
-        font-size: 70vw;
-        right: -255%;
+        font-size: 90vw;
+        right: -295%;
         white-space: nowrap;
+        top: 65%;
     }
 
     .card {
-        padding: 10px;
-        height: 380px;
-        width: 500px;
-        margin: 12px;
+        padding: 0.5rem;
+        height: 100%;
+        width: 100%;
+        margin: 0.0rem;
         top: 3%;
     }
     
@@ -714,14 +784,14 @@ footer {
     }
     
     .card h3 {
-        margin-bottom: 6px;
-        font-size: 15px;
+        margin-bottom: 0.3rem;
+        font-size: 0.75rem;
         white-space: wrap;
     }
     
     .card h4 {
-        font-size: 12px;
-        margin-bottom: 5px;
+        font-size: 0.6rem;
+        margin-bottom: 0.2rem;
     }
     
     .card p {
@@ -734,14 +804,31 @@ footer {
         margin-bottom: 5px;
         padding-left: 13px;
     }
+
+    #main-content #res-experience {
+        height: 70vh !important;
+    }
     
-    #res-experience .container2 h1 {
-        right: -290%;
+    #res-experience .container1 {
+        height: 70vh;
+        top: 5%;
     }
 
+    #res-experience .container2 {
+        height: 55vh;
+        top: 0%;
+    }
+    
+    #res-experience .container2 h1 {
+        right: -390%;
+    }
+
+
+    /* Continue */
+
     #res-experience .card {
-        height: 280px;
-        width: 250px;
+        height: 14.2rem;
+        width: 12rem;
     }
 
 
@@ -761,28 +848,27 @@ footer {
         position: absolute;
         width: 50%;
         height: 100%;
-        top: 10%;
+        top: 5%;
         left: 33%;
         color: var(--highlight-text);
     }
     
     #contact p {
-        position: absolute;
-        justify-content: center;
-        top: 35%;
-        left: 5%;
-        width: 90%;
-        white-space: wrap;
-        margin-top: 20px;
-        font-size: 19px;
-        font-family: "Roboto Slab", serif;
-        color: var(--text-secondary);
+        top: 25%;
+        left: 3%;
+        width: 100%;
+        margin-top: 3vh;
+        padding-right: 2vh;
+        font-size: 1.02rem;
     }
     
     #contact .container4 {
         position: absolute;
         top: 60%;
-        left: 18.25%;
+        left: 15%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     
     #contact .container3 h1 {
@@ -797,12 +883,12 @@ footer {
     .btn {
         transition: none;
         color: var(--btn-text);
-        margin: 0 10px;
+        margin: 0 5px;
         background-color: transparent;
         border: 2px solid var(--btn-border);
         border-radius: 8px;
         padding: 12px 16px;
-        font-size: 56px;
+        font-size: 36px;
         cursor: pointer;
     }
 }
