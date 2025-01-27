@@ -72,6 +72,21 @@ body {
 
 }
 
+#cursor {
+    height: 200px;
+    width: 200px;
+    background-color: rgb(193, 93, 27);
+    border-radius: 50%;
+    position: fixed;
+    z-index: 9;
+    pointer-events: none;
+}
+
+#cursor.active {
+    scale: 1;
+}
+
+
 #name-screen .container {
     height: 100vh;
     display: flex;
@@ -617,6 +632,16 @@ footer {
 
 
 @media (max-width: 600px) {
+    #cursor {
+        height: 100px;
+        width: 100px;
+        background-color: rgb(193, 93, 27);
+        border-radius: 50%;
+        position: fixed;
+        z-index: 9;
+        pointer-events: none;
+    }
+
     #name-screen .container {
         display: flex;
         justify-content: center;

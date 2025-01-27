@@ -235,6 +235,31 @@ function cursorAnimation() {
 
 function setupProjectsAnimation() {
     // Initial setup
+
+    gsap.from("#tech-projects .container1", {
+        opacity: 0,
+        y: 15,
+        duration: 1, // Smooth and extended duration
+        ease: "power4.inOut",
+        scrollTrigger: {
+            trigger: "#tech-projects",
+            start: "top 50%", // Starts when the section is in view
+            toggleActions: "play none none none"
+        }
+    });
+
+    gsap.from("#tech-projects .container2 h1", {
+        opacity: 0,
+        y: 15,
+        duration: 1, // Smooth and extended duration
+        ease: "power4.inOut",
+        scrollTrigger: {
+            trigger: "#tech-projects",
+            start: "top 38%", // Starts when the section is in view
+            toggleActions: "play none none none"
+        }
+    });
+
     gsap.to("#tech-projects .container2 h1", {
         xPercent: -170, // Move fully off screen to the left
         ease: "none",   // Linear animation for smooth scrolling
@@ -276,6 +301,30 @@ function setupProjectsAnimation() {
 
 function setupResearchAnimation() {
     // Initial setup
+    gsap.from("#res-experience .container1", {
+        opacity: 0,
+        y: 15,
+        duration: 1, // Smooth and extended duration
+        ease: "power4.inOut",
+        scrollTrigger: {
+            trigger: "#res-experience",
+            start: "top 50%", // Starts when the section is in view
+            toggleActions: "play none none none"
+        }
+    });
+
+    gsap.from("#res-experience .container2 h1", {
+        opacity: 0,
+        y: 15,
+        duration: 1, // Smooth and extended duration
+        ease: "power4.inOut",
+        scrollTrigger: {
+            trigger: "#res-experience",
+            start: "top 38%", // Starts when the section is in view
+            toggleActions: "play none none none"
+        }
+    });
+
     gsap.to("#res-experience .container2 h1", {
         xPercent: -170, // Move fully off screen to the left
         ease: "none",   // Linear animation for smooth scrolling
@@ -319,7 +368,7 @@ function contactAnimation() {
     gsap.from("#contact .container3 h1", {
         opacity: 0,
         y: 50,
-        duration: 2, // Smooth and extended duration
+        duration: 1.5, // Smooth and extended duration
         ease: "power4.inOut",
         scrollTrigger: {
             trigger: "#contact",
@@ -331,7 +380,7 @@ function contactAnimation() {
     gsap.from("#contact p", {
         opacity: 0,
         y: 50,
-        duration: 2, // Smooth and extended duration
+        duration: 1.5, // Smooth and extended duration
         ease: "power4.inOut",
         scrollTrigger: {
             trigger: "#contact",
@@ -343,7 +392,7 @@ function contactAnimation() {
     gsap.from("#contact .container4", {
         opacity: 0,
         y: 50,
-        duration: 2, // Smooth and extended duration
+        duration: 1.5, // Smooth and extended duration
         ease: "power4.inOut",
         scrollTrigger: {
             trigger: "#contact",
