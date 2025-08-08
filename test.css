@@ -174,6 +174,37 @@ html, body {
     z-index: 4;
 }
 
+
+/* New approach: CSS-generated stars */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--matte-black);
+  }
+  
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+  }
+  
+  
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  
+  /* Different star sizes for depth */
+  .star.small { width: 0.1vw; height: 0.1vw; }
+  .star.medium { width: 0.15vw; height: 0.15vw; }
+  .star.large { width: 0.2vw; height: 0.2vw; }
+
 @keyframes anime1 {
     from{
         transform: translate(23%, -28%);
@@ -213,32 +244,30 @@ html, body {
     border-radius: 40px;
 }
 
-/* New approach: CSS-generated stars */
-.stars-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  overflow: hidden;
-  background-color: var(--matte-black);
+
+#page2 .content {   
+    position: relative; 
+    top: 15vw; /* Use viewport height instead of percentage */
+    left: 2%;
+    transition: 
+    background-color 0.5s ease,
+    color 0.5s ease;
 }
 
-.star {
-  position: absolute;
-  background: white;
-  border-radius: 50%;
-  animation: twinkle 3s infinite;
+#page2 .content h2 {
+    font-size: 75px;
+    font-family: "Playfair Display", serif;
+    font-weight: 100;
+    color: var(--intro-highlight-text); /* Light Blue for heading */
 }
 
-
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
+#page2 .content p {
+    width: 60%;
+    margin-top: 45px;
+    margin-left: 5px;
+    font-size: 25px;
+    font-family: "Roboto Slab", serif;
+    font-weight: 100;
+    color: var(--text-primary);
 }
 
-/* Different star sizes for depth */
-.star.small { width: 0.1vw; height: 0.1vw; }
-.star.medium { width: 0.15vw; height: 0.15vw; }
-.star.large { width: 0.2vw; height: 0.2vw; }
