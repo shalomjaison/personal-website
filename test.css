@@ -1,0 +1,178 @@
+/* Color Palette Variables */
+:root {
+    --beige: #f5f0eb;
+    --charcoal: #2e2e2e;
+    --frosted-blue: #c9d3d6;
+    --teal: #1f7061;
+    --white: #ffffff;
+    --matte-black: #0F0F0F;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: var(--charcoal);
+} 
+
+#loading-screen {
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--matte-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* overflow: hidden; */
+    top: 0;
+    position: fixed;
+    transition: all ease 2s;
+    z-index: 100;
+}
+
+.hello-text {
+    position: absolute;
+    opacity: 0;
+    font-weight: 100;
+    font-size: 7vw;
+    /* color: transparent;
+    background: linear-gradient(to top,#1f7061, #2e2e2e);
+    -webkit-background-clip: text; */
+    color: var(--white);
+    top: 30%;
+}
+
+#intro {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--matte-black);
+    top: -10%;
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    z-index: 8;
+    gap: 1.5vw;
+}
+
+#name-line {
+    position: relative;
+    font-size: 7vw;
+    display: flex;
+    font-weight: 200;
+    gap: 2vw;
+    left: 1%;
+}
+
+#roles {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    gap: 5vw;
+    color: var(--frosted-blue);
+}
+
+#roles h2 {
+  font-size: 1vw;
+  font-weight: 100;
+}
+
+#hero-shape {
+    position: absolute;
+    height: 35vw;
+    width: 50vw;
+    border-radius: 50%;
+    /* border: 1px solid saddlebrown; */
+    left: 22%;
+    top: 3%
+}
+
+#hero-1 {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(#FE320A, #ef411e);
+    filter: blur(20px);
+    border-radius: 50%;
+    position: absolute;
+}
+
+#hero-2 {
+    height: 30vw;
+    width: 30vw;
+    background: linear-gradient(#FE320A, #ef411e);
+    border-radius: 50%;
+    filter: blur(20px);
+    position: absolute;
+    left: 22%;
+    top: 22%;
+    animation-name: anime1;
+    animation-duration: 9s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate-reverse;
+    animation-timing-function: ease-in-out;
+}
+
+#hero-3 {
+    height: 30vw;
+    width: 30vw;
+    background: linear-gradient(#FE320A, #ef411e);
+    border-radius: 50%;
+    filter: blur(20px);
+    position: absolute;
+    left: 22%;
+    top: 22%;
+    animation-name: anime2;
+    animation-duration: 9s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-delay: 5s;
+}
+
+@keyframes anime1 {
+    from{
+        transform: translate(23%, -28%);
+    }
+    to {
+        transform: translate(-37%, -10%);
+    }
+}
+
+@keyframes anime2{
+    from{
+        transform: translate(35%, -6%)
+    }
+    to {
+        transform: translate(-30%, -25%);
+    }
+}
+
+#main {
+    z-index: 10;
+    position: relative;
+}
+
+#page1 {
+    min-height: 70vh;
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+
+}
+
+#page2 {
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--beige);
+    width: 100%;
+    border-radius: 40px;
+}
