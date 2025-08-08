@@ -54,7 +54,7 @@ html, body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: var(--matte-black);
+    color: #0f0f0fc9;
     top: -10%;
     width: 100%;
     height: 100vh;
@@ -68,14 +68,9 @@ html, body {
     to {background-position:-10000px 5000px;}
 }
 
-@keyframes move-clouds-back {
-    from {background-position:0 0;}
-    to {background-position:10000px 0;}
-}
-
 .stars, .twinkling{
   position:absolute;
-  top:0;
+  top:-30%;
   left:0;
   right:0;
   bottom:0;
@@ -86,6 +81,7 @@ html, body {
 
 .stars {
   background:#000 url(stars.png) repeat top center;
+  background-size: 150vw 150vw;
   z-index:0;
 }
 
@@ -130,6 +126,7 @@ html, body {
     left: 22%;
     top: 3%;
     z-index: 4;
+    opacity: 0.7;
 }
 
 #hero-1 {
@@ -215,3 +212,33 @@ html, body {
     width: 100%;
     border-radius: 40px;
 }
+
+/* New approach: CSS-generated stars */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  background-color: var(--matte-black);
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 3s infinite;
+}
+
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+/* Different star sizes for depth */
+.star.small { width: 0.1vw; height: 0.1vw; }
+.star.medium { width: 0.15vw; height: 0.15vw; }
+.star.large { width: 0.2vw; height: 0.2vw; }

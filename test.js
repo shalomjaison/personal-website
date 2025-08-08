@@ -89,6 +89,70 @@ gsap.to('#roles', {
   }
 });
 
+
+// New approach: Generate actual stars and create true parallax
+function createStars() {
+  const starsContainer = document.createElement('div');
+  starsContainer.className = 'stars-container';
+  document.body.appendChild(starsContainer);
+
+  // Generate 200 stars
+  for (let i = 0; i < 200; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    
+    // Random position
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    
+    // Random size for depth effect
+    const sizes = ['small', 'medium', 'large'];
+    star.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
+    
+    // Random animation delay
+    star.style.animationDelay = Math.random() * 3 + 's';
+    
+    starsContainer.appendChild(star);
+  }
+}
+
+// Create stars when page loads
+createStars();
+
+// True parallax effect - move stars at different speeds based on size
+gsap.to('.star.small', {
+  y: "-40vh", // Far stars move slower
+  ease: "none",
+  scrollTrigger: {
+    trigger: "#main",
+    start: "top top",
+    end: "bottom top",
+    scrub: 1,
+  }
+});
+
+gsap.to('.star.medium', {
+  y: "-60vh", // Medium stars move faster
+  ease: "none",
+  scrollTrigger: {
+    trigger: "#main",
+    start: "top top",
+    end: "bottom top",
+    scrub: 1,
+  }
+});
+
+gsap.to('.star.large', {
+  y: "-100vh", // Close stars move fastest
+  ease: "none",
+  scrollTrigger: {
+    trigger: "#main",
+    start: "top top",
+    end: "bottom top",
+    scrub: 1,
+  }
+});
+
 gsap.fromTo('#hero-shape', {
   width: "35vw",
   height: "15vw",
@@ -107,3 +171,26 @@ gsap.fromTo('#hero-shape', {
     scrub: 1,
   }
 });
+
+// Alternative: Viewport-based parallax (uncomment to try)
+// gsap.to('.stars', {
+//   y: "-15vh", // Move stars up by 15% of viewport height
+//   ease: "none",
+//   scrollTrigger: {
+//     trigger: "#main",
+//     start: "top top",
+//     end: "bottom top",
+//     scrub: 1,
+//   }
+// });
+
+// gsap.to('.twinkling', {
+//   y: "-10vh", // Move twinkling up by 10% of viewport height
+//   ease: "none",
+//   scrollTrigger: {
+//     trigger: "#main",
+//     start: "top top",
+//     end: "bottom top",
+//     scrub: 1,
+//   }
+// });
