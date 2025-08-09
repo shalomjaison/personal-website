@@ -241,17 +241,18 @@ html, body {
     position: relative;
     background-color: var(--beige);
     width: 100%;
-    border-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
 }
 
 
 #page2 .content {   
     position: relative; 
-    top: 15vw; /* Use viewport height instead of percentage */
-    left: 2%;
     transition: 
     background-color 0.5s ease,
     color 0.5s ease;
+    padding: 0 2.5vw;
+    padding-top: 11vw;
 }
 
 #page2 .content h2 {
@@ -270,4 +271,55 @@ html, body {
     font-weight: 100;
     color: var(--text-primary);
 }
+
+#moving-text {
+    white-space: nowrap;
+    overflow-x: auto;
+    margin-top: 10vw;
+}
+
+#moving-text::-webkit-scrollbar {
+    display: none;
+}
+
+.con {
+    white-space: nowrap;
+    display: inline-block;
+    gap: 1vw;
+    animation: move-left 10s linear infinite;
+}
+
+.con svg {
+    height: 10vw;
+    width: 10vw;
+    display: inline-block;
+}
+
+#circle {
+    height: 3vw;
+    width: 3vw;
+    background-color: var(--frosted-blue);
+    border-radius: 50%;
+    display: inline-block;
+    margin: 4vw 3vw;
+}
+
+@keyframes move-left {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+
+#page3 {
+    min-height: 100vh;
+    position: relative;
+    background-color: var(--beige);
+    width: 100%;
+}
+
+
 
