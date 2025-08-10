@@ -6,6 +6,7 @@
     --teal: #1f7061;
     --white: #ffffff;
     --matte-black: #0F0F0F;
+    --grid: 20px;
 }
 
 * {
@@ -229,7 +230,7 @@ html, body {
 }
 
 #page1 {
-    min-height: 70vh;
+    min-height: 100vh;
     width: 100%;
     position: relative;
     border-radius: 15px;
@@ -256,7 +257,7 @@ html, body {
 }
 
 #page2 .content h2 {
-    font-size: 75px;
+    font-size: 5vw;
     font-family: "Playfair Display", serif;
     font-weight: 100;
     color: var(--intro-highlight-text); /* Light Blue for heading */
@@ -264,18 +265,25 @@ html, body {
 
 #page2 .content p {
     width: 60%;
-    margin-top: 45px;
-    margin-left: 5px;
-    font-size: 25px;
+    margin-left: 0.3vw;
+    font-size: 1.5vw;
     font-family: "Roboto Slab", serif;
     font-weight: 100;
     color: var(--text-primary);
 }
 
+#stat3 {
+    margin-top: 3vw;
+}
+
+#stat4, #stat5 {
+    margin-top: 2vw;
+}
+
 #moving-text {
     white-space: nowrap;
     overflow-x: auto;
-    margin-top: 10vw;
+    margin-top: 5vw;
 }
 
 #moving-text::-webkit-scrollbar {
@@ -321,5 +329,23 @@ html, body {
     width: 100%;
 }
 
+#page3-title {
+    display: flex;
+    align-items: center;
+    padding-top: 4vw;
+}
+
+#page3-title #circle {
+    height: 0.8vw;
+    width: 0.8vw;
+    margin: 0 0;
+    margin-right: 1vw;
+    margin-left: 2.8vw;
+}
 
 
+
+.projects { position: relative; height: 100vh; overflow: hidden; }
+.track { display: flex; height: 100%; }
+.slide { flex: 0 0 100vw; height: 100%; padding: 6vw; }
+.overlay { position: absolute; right: 3vw; bottom: 3vw; pointer-events:none; }
