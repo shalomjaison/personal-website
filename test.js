@@ -173,36 +173,3 @@ gsap.fromTo('#hero-shape', {
 });
 
 
-// assumes Lenis is already set up
-gsap.registerPlugin(ScrollTrigger);
-
-const track   = document.querySelector(".track");
-const slides  = gsap.utils.toArray(".slide");
-const total   = slides.length;
-
-// horizontal distance = track width - viewport
-const scrollWidth = track.scrollWidth - window.innerWidth;
-
-const tween = gsap.to(track, {
-  x: () => -scrollWidth,
-  ease: "none",
-  scrollTrigger: {
-    trigger: ".projects",
-    start: "top top",
-    end: () => `+=${scrollWidth}`,
-    scrub: 0.6,
-    pin: true,
-    anticipatePin: 1,
-    snap: 1 / (total - 1), // snap each slide
-    onUpdate: (self) => {
-      const i = Math.round(self.progress * (total - 1));
-      document.querySelector(".count").textContent = String(i + 1).padStart(2, "0");
-      document.querySelector(".title").textContent = slides[i].dataset.title || `Project ${i+1}`;
-    }
-  }
-});
-
-// responsive: disable pin on small screens
-ScrollTrigger.matchMedia({
-  "(max-width: 768px)": () => { ScrollTrigger.getAll().forEach(st => st.kill()); }
-});

@@ -246,6 +246,17 @@ html, body {
     border-top-right-radius: 40px;
 }
 
+.content {
+    display: flex;
+}
+
+#content-left {
+    width: 60vw;
+}
+
+#content-right {
+    width: 40vw;
+}
 
 #page2 .content {   
     position: relative; 
@@ -253,18 +264,20 @@ html, body {
     background-color 0.5s ease,
     color 0.5s ease;
     padding: 0 2.5vw;
-    padding-top: 11vw;
+    padding-top: 6vw;
 }
 
 #page2 .content h2 {
-    font-size: 5vw;
+    font-size: 4.8vw;
+    line-height: 1.1;
+    letter-spacing: -0.07vw;
     font-family: "Playfair Display", serif;
     font-weight: 100;
     color: var(--intro-highlight-text); /* Light Blue for heading */
 }
 
 #page2 .content p {
-    width: 60%;
+    width: 100%;
     margin-left: 0.3vw;
     font-size: 1.5vw;
     font-family: "Roboto Slab", serif;
@@ -290,6 +303,45 @@ html, body {
     display: none;
 }
 
+#hero-right-1 {
+    height: 30vw;
+    width: 30vw;
+    background: linear-gradient(to top, #1f7061, #b5d8d2);
+    filter: blur(30px);
+    border-radius: 50%;
+    position: absolute;
+    z-index: 11;
+    right: 2%;
+    top: 5%;
+}
+
+#hero-right-2 {
+    height: 30vw;
+    width: 30vw;
+    background: linear-gradient(to bottom, #1f7061, #b5d8d2);
+    filter: blur(30px);
+    border-radius: 50%;
+    animation-name: anime1;
+    animation-duration: 5s;
+    animation-timing-function:ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    position: absolute;
+    z-index: 11;
+    right: 2%;
+    top: 5%;
+}
+
+@keyframes anime1 {
+    from{
+        transform: translate(15%, -8%);
+    }
+    to {
+        transform: translate(-5%, 8%);
+    }
+}
+
+
 .con {
     white-space: nowrap;
     display: inline-block;
@@ -297,6 +349,10 @@ html, body {
     animation: move-left 10s linear infinite;
 }
 
+.con svg {
+    height: 11vw;
+    width: 11vw;
+}
 
 #circle {
     height: 3vw;
@@ -304,7 +360,65 @@ html, body {
     background-color: var(--frosted-blue);
     border-radius: 50%;
     display: inline-block;
-    margin: -1vw 3vw;
+    margin: 4vw 3vw;
+}
+
+#tech-skills {
+    display: flex;
+    align-items: center;
+    /* justify-content: space-around; */
+    margin-top: 3vw;
+    margin-left: 2.7vw;
+    gap: 2vw;
+}
+#tech-skills .card {
+    width: 23vw;
+    height: 14vw;
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 1.5vw 1vw;
+    padding-right: 0vw;
+    transition: all 0.2s ease-in-out;
+}
+
+#tech-skills .card:hover {
+    transform: translateY(-0.3vw) scale(1.01);
+    transition: all 0.2s ease-in-out;
+}
+
+#tech-skills .card:nth-of-type(1){
+    background-color: var(--frosted-blue);
+}
+
+#tech-skills .card:nth-of-type(2){
+    background-color: #e5d7c8;
+}
+
+#tech-skills .card:nth-of-type(3){
+    background-color:#c2d9d2;
+}
+
+#tech-skills .card-title {
+    font-size: 2vw;
+    font-weight: 100;
+    margin-bottom: 1vw;
+}
+
+#tech-skills .card-stack {
+    font-size: 1.5vw;
+    font-weight: 100;
+    margin-bottom: 1vw;
+    width: 20vw;
+    color: #04483c;
+    opacity: 0.85;
+}
+
+#tech-skills .card-desc {
+    font-size: 1vw;
+    font-weight: 100;
+    margin-bottom: 1vw;
+    width: 20vw;
+    color: var(--charcoal);
 }
 
 .badge {
@@ -338,6 +452,7 @@ html, body {
     background-color: var(--beige);
     width: 100%;
 }
+
 
 #page3-title {
     display: flex;
