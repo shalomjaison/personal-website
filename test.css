@@ -133,7 +133,7 @@ html, body {
 #hero-1 {
     height: 100%;
     width: 100%;
-    background: linear-gradient(#FE320A, #ef411e);
+    background: linear-gradient( #60c1b1, #76b6ab); 
     filter: blur(20px);
     border-radius: 50%;
     position: absolute;
@@ -143,7 +143,7 @@ html, body {
 #hero-2 {
     height: 30vw;
     width: 30vw;
-    background: linear-gradient(#FE320A, #ef411e);
+    background: linear-gradient( #60c1b1, #76b6ab); 
     border-radius: 50%;
     filter: blur(20px);
     position: absolute;
@@ -160,7 +160,7 @@ html, body {
 #hero-3 {
     height: 30vw;
     width: 30vw;
-    background: linear-gradient(#FE320A, #ef411e);
+    background: linear-gradient( #60c1b1, #76b6ab); 
     border-radius: 50%;
     filter: blur(20px);
     position: absolute;
@@ -304,37 +304,39 @@ html, body {
 }
 
 #hero-right-1 {
-    height: 30vw;
+    height: 33vw;
     width: 30vw;
-    background: linear-gradient(to top, #1f7061, #b5d8d2);
-    filter: blur(30px);
-    border-radius: 50%;
+    background: linear-gradient(to top, #60c1b1, #76b6ab);
+    filter: blur(10px);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
     position: absolute;
     z-index: 11;
-    right: 2%;
-    top: 5%;
-}
-
-#hero-right-2 {
-    height: 30vw;
-    width: 30vw;
-    background: linear-gradient(to bottom, #1f7061, #b5d8d2);
-    filter: blur(30px);
-    border-radius: 50%;
+    right: -2%;
+    top: 0%;
     animation-name: anime1;
     animation-duration: 5s;
     animation-timing-function:ease;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+#hero-right-2 {
+    height: 33vw;
+    width: 30vw;
+    background: linear-gradient(to top, #60c1b1, #76b6ab);
+    filter: blur(10px);
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
     position: absolute;
     z-index: 11;
-    right: 2%;
-    top: 5%;
+    right: -2%;
+    top: 0%;
 }
 
 @keyframes anime1 {
     from{
-        transform: translate(15%, -8%);
+        transform: translate(15%, 1%);
     }
     to {
         transform: translate(-5%, 8%);
@@ -451,6 +453,8 @@ html, body {
     position: relative;
     background-color: var(--beige);
     width: 100%;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
 }
 
 
@@ -476,3 +480,11 @@ html, body {
 .track { display: flex; height: 100%; }
 .slide { flex: 0 0 100vw; height: 100%; padding: 6vw; }
 .overlay { position: absolute; right: 3vw; bottom: 3vw; pointer-events:none; }
+
+#page4 {
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    border-radius: 15px;
+    z-index: 10;
+}
