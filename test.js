@@ -55,19 +55,19 @@ function initLoadingScreen() {
 
 // ===== SMOOTH SCROLLING =====
 function initSmoothScrolling() {
-    const lenis = new Lenis();
+  const lenis = new Lenis();
 
-    function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-    }
+  // GSAP drives Lenis for perfect sync
+  gsap.ticker.add((t) => lenis.raf(t * 1000));
+  gsap.ticker.lagSmoothing(0);
 
-    requestAnimationFrame(raf);
+  // Keep ScrollTrigger updated
+  lenis.on('scroll', ScrollTrigger.update);
 }
 
 // ===== PARALLAX EFFECTS =====
 function initParallaxEffects() {
-    gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
     // Intro section parallax
     gsap.to("#intro", {
@@ -177,28 +177,115 @@ function initStarParallax() {
 
 // ===== SCROLL TRIGGERS =====
 function initScrollTriggers() {
+    // Set initial state - footer should be hidden initially
+    const footer = document.getElementById("footer");
+    const roles = document.getElementById("roles");
+    
+    if (footer) {
+        footer.style.visibility = "visible"; // Keep visible for GSAP to animate
+        gsap.set(footer, { opacity: 0, y: 50 }); // Start hidden and slightly below
+    }
+    if (roles) {
+        roles.style.visibility = "visible"; // Keep visible for GSAP to animate
+    }
+    
     // Hide roles when on page4
     ScrollTrigger.create({
         trigger: "#page4",
         start: "top center",
         onEnter: () => {
-            console.log("ENTER page4 - hiding roles");
-            document.getElementById("roles").style.visibility = "hidden";
+            console.log("ENTER page4 - hiding roles, showing footer");
+            if (roles) roles.style.visibility = "hidden";
+            if (footer) gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
         },
         onLeave: () => {
-            console.log("LEAVE page4 - showing roles");
-            document.getElementById("roles").style.visibility = "visible";
+            console.log("LEAVE page4 - showing roles, hiding footer");
+            if (roles) roles.style.visibility = "visible";
+            if (footer) gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
         },
         onEnterBack: () => {
-            console.log("ENTER BACK page4 - hiding roles");
-            document.getElementById("roles").style.visibility = "hidden";
+            console.log("ENTER BACK page4 - hiding roles, showing footer");
+            if (roles) roles.style.visibility = "hidden";
+            if (footer) gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
         },
         onLeaveBack: () => {
-            console.log("LEAVE BACK page4 - showing roles");
-            document.getElementById("roles").style.visibility = "visible";
+            console.log("LEAVE BACK page4 - showing roles, hiding footer");
+            if (roles) roles.style.visibility = "visible";
+            if (footer) gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
         }
     });
+    
 }
+// global flag so we can stop scrambling once #page3 is fully in view
+let stopScramble = false;
+
+function scrambleProjects() {
+  const projects = document.querySelectorAll(".project");
+  const h2s = [];
+
+  projects.forEach((project, i) => {
+    const h2 = project.querySelector("h2");
+    if (!h2) return;
+
+    const finalText = h2.textContent;
+    h2.dataset.finalText = finalText; // for later finalize
+    h2s.push(h2);
+
+    const poolBase = finalText.toLowerCase().replace(/[^a-z]/g, "");
+    const pool = poolBase.length ? poolBase : "abcdefghijklmnopqrstuvwxyz";
+    const isFixed = (ch) => /\s|[^A-Za-z]/.test(ch);
+
+    let lastTick = 0;
+    const isLast = i === projects.length - 1;
+
+    ScrollTrigger.create({
+      trigger: project,
+      start: "top 90%",
+      // last project finishes early (shorter range)
+      end: isLast ? "top 5%" : "bottom 20%",
+      scrub: 1,
+      // markers: true,
+      onUpdate(self) {
+        if (stopScramble) { h2.textContent = finalText; return; }
+
+        // accelerate reveal for the last card so it completes earlier
+        const prog = isLast ? Math.min(1, self.progress * 1.8) : self.progress;
+
+        const now = performance.now();
+        if (now - lastTick < 40) return; // ~25fps throttle
+        lastTick = now;
+
+        const reveal = Math.floor(prog * finalText.length);
+
+        let out = "";
+        for (let j = 0; j < finalText.length; j++) {
+          const ch = finalText[j];
+          if (j < reveal || isFixed(ch)) out += ch;
+          else out += pool[(Math.random() * pool.length) | 0];
+        }
+        h2.textContent = out;
+      },
+      onLeave() { h2.textContent = finalText; },
+      onLeaveBack() { if (!stopScramble) h2.textContent = finalText; },
+    });
+  });
+
+  // As soon as #page3 hits the viewport top, stop all scrambling & lock final text
+  ScrollTrigger.create({
+    trigger: "#page3",
+    start: "top -7.5%",
+    // start: "bottom 96%",
+    onEnter: () => {
+      stopScramble = true;
+      h2s.forEach(h2 => (h2.textContent = h2.dataset.finalText));
+    },
+    onLeaveBack: () => { // allow scrambling again only when scrolling above #page3
+      stopScramble = false;
+    }
+  });
+}
+
+
 
 // ===== MAIN INITIALIZATION =====
 function init() {
@@ -208,6 +295,7 @@ function init() {
     createStars();
     initStarParallax();
     initScrollTriggers();
+    scrambleProjects();
 }
 
 // ===== START EVERYTHING =====

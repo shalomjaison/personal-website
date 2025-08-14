@@ -801,6 +801,7 @@ footer {
         width: 100%;
         margin: 0.0rem;
         top: 3%;
+        border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle, less solid border */
     }
     
     .card:hover {

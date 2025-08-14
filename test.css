@@ -20,6 +20,7 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     background-color: var(--charcoal);
+    cursor: url('cursor.ani'), auto;
 } 
 
 #loading-screen {
@@ -296,7 +297,8 @@ html, body {
 #moving-text {
     white-space: nowrap;
     overflow-x: auto;
-    margin-top: 5vw;
+    margin-top: 10vw;
+    padding-bottom: 10vw;
 }
 
 #moving-text::-webkit-scrollbar {
@@ -437,20 +439,7 @@ html, body {
     color: var(--charcoal);
 }
 
-.badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.4em 0.8em;
-    border-radius: 8px;   
-    font-family: "Limelight", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    font-size: 2vw;
-    border: 2px solid #000; 
-    background-color: var(--teal);
-    
-}
+
 
 @keyframes move-left {
     from {
@@ -476,6 +465,7 @@ html, body {
     display: flex;
     align-items: center;
     padding-top: 4vw;
+    margin-bottom: 2vw;
 }
 
 #page3-title #circle {
@@ -488,17 +478,135 @@ html, body {
     flex-shrink: 0;
 }
 
+#page3-projects {
+    display: flex;
+    flex-direction: column;
+}
 
+.project{
+    height: 7.7vw;
+    width: 100%;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-.projects { position: relative; height: 100vh; overflow: hidden; }
-.track { display: flex; height: 100%; }
-.slide { flex: 0 0 100vw; height: 100%; padding: 6vw; }
-.overlay { position: absolute; right: 3vw; bottom: 3vw; pointer-events:none; }
+.project h2 {
+    font-family: "Mozilla Headline", sans-serif;
+    font-size: 5vw;
+    font-weight: 500;
+}
 
+.project:nth-child(even) {
+    border: none; /* Remove border from even-numbered projects */
+}
+
+.project:nth-child(6) {
+    border-bottom: 2px solid black;
+}
 #page4 {
     min-height: 100vh;
     width: 100%;
     position: relative;
     border-radius: 15px;
-    z-index: 10;
+    z-index: 0;
 }
+
+#footer {
+    color: var(--white);
+    position: fixed;
+    bottom: 0%;
+    width: 100%;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#footer-upper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    margin-bottom: 16vw;
+
+}
+
+#footer-upper h1 {
+    font-size: 10vw;
+    font-family: "Mozilla Headline", sans-serif;
+    font-weight: 100;
+    margin-left: 7vw;
+    margin-bottom: 3vw;
+}
+
+#footer-upper p {
+    font-size: 2vw;
+    font-weight: 100;
+    padding: 0 13vw;
+    text-align: center;
+}
+
+
+#footer-bottom {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    border-bottom: 1px solid #ffffff2c;
+    margin: 0 20vw;
+    margin-bottom: 3vw;
+}
+
+#footer-bottom .footer-btn {
+    font-family: "Mozilla Headline", sans-serif;
+    font-size: 2vw;
+    border: 3px solid var(--white);
+    padding: 0.5vw 1vw;
+    font-weight: 100;
+    text-decoration: none;
+    color: var(--white);
+    transition: all 0.2s ease-in-out;
+    background: rgba(169, 203, 196, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+#footer-bottom .footer-btn:hover {
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    background: rgba(169, 203, 196, 0.2);
+    transform: scale(1.01) translateY(-2px);
+}
+
+.footer-btn i{
+    width:36px; height:36px; flex:0 0 36px;
+    display:inline-grid; place-items:center;
+    border-radius:999px;
+    background: #a9cbc433;
+    color:#76b6ab;
+    font-size: 1.5vw; 
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.12) inset,
+                0 8px 18px rgba(169,203,196,.18);
+    transform: translateZ(0);
+    transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+
+#footer p {
+    text-align: center;
+    font-size: 1.5vw;
+    font-weight: 100;
+    /* padding: 0 13vw; */
+    margin-bottom: 0vw;
+}
+
