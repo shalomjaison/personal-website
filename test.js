@@ -182,7 +182,7 @@ function initScrollTriggers() {
     const roles = document.getElementById("roles");
     
     if (footer) {
-        footer.style.visibility = "visible"; // Keep visible for GSAP to animate
+        footer.style.visibility = "hidden"; // Keep visible for GSAP to animate
         gsap.set(footer, { opacity: 0, y: 50 }); // Start hidden and slightly below
     }
     if (roles) {
@@ -194,24 +194,54 @@ function initScrollTriggers() {
         trigger: "#page4",
         start: "top center",
         onEnter: () => {
-            console.log("ENTER page4 - hiding roles, showing footer");
             if (roles) roles.style.visibility = "hidden";
-            if (footer) gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
         },
         onLeave: () => {
-            console.log("LEAVE page4 - showing roles, hiding footer");
             if (roles) roles.style.visibility = "visible";
-            if (footer) gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
         },
         onEnterBack: () => {
-            console.log("ENTER BACK page4 - hiding roles, showing footer");
             if (roles) roles.style.visibility = "hidden";
-            if (footer) gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
         },
         onLeaveBack: () => {
-            console.log("LEAVE BACK page4 - showing roles, hiding footer");
             if (roles) roles.style.visibility = "visible";
-            if (footer) gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
+        }
+    });
+
+    // Separate trigger to hide footer earlier when scrolling up
+    ScrollTrigger.create({
+        trigger: "#page4",
+        start: "top 30%",
+        onEnter: () => {
+            // Footer should already be visible here, do nothing
+            if (footer) {
+                footer.style.visibility = "visible";
+                gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+                footer.style.pointerEvents = "auto";
+            }
+        },
+        onLeave: () => {
+            // Footer disappears when top of page4 hits 10% of viewport
+            if (footer) {
+                gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
+                // footer.style.visibility = "hidden";
+                footer.style.pointerEvents = "none";
+            }
+        },
+        onEnterBack: () => {
+            // Footer appears when scrolling back down to page4
+            if (footer) {
+                footer.style.visibility = "visible";
+                gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
+                footer.style.pointerEvents = "auto";
+            }
+        },
+        onLeaveBack: () => {
+            // Footer disappears when scrolling up past 10% point
+            if (footer) {
+                gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
+                // footer.style.visibility = "hidden";
+                footer.style.pointerEvents = "none";
+            }
         }
     });
     
@@ -273,7 +303,7 @@ function scrambleProjects() {
   // As soon as #page3 hits the viewport top, stop all scrambling & lock final text
   ScrollTrigger.create({
     trigger: "#page3",
-    start: "top -7.5%",
+    start: "top -5%",
     // start: "bottom 96%",
     onEnter: () => {
       stopScramble = true;
