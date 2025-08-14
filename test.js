@@ -285,6 +285,31 @@ function scrambleProjects() {
   });
 }
 
+// ===== FLOATING EFFECTS =====
+function initFloatingFooter(){
+    function floatIt(el, intensity = 1) {
+        // position float
+        gsap.to(el, {
+            x: () => gsap.utils.random(-5, 5) * intensity,
+            y: () => gsap.utils.random(-6, 6) * intensity,
+            rotationX: () => gsap.utils.random(-0.3, 0.3) * intensity,
+            rotationY: () => gsap.utils.random(-3, 3) * intensity,
+            duration: () => gsap.utils.random(2, 4),
+            ease: "sine.inOut",
+            yoyo: true,
+            repeat: -1
+        });
+    }
+
+  // -------- Apply floats
+  floatIt("#footer-upper h1", 1.2);
+  floatIt("#footer-upper p", 0.8);
+  let footerButtons = document.querySelector("#footer-bottom");
+  floatIt(footerButtons, 3);
+  floatIt("#hero-6", 6);
+}
+
+
 
 
 // ===== MAIN INITIALIZATION =====
@@ -296,6 +321,7 @@ function init() {
     initStarParallax();
     initScrollTriggers();
     scrambleProjects();
+    initFloatingFooter();
 }
 
 // ===== START EVERYTHING =====
