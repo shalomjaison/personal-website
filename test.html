@@ -93,41 +93,115 @@
                 <span>FEATURED WORK</span>
             </div>
             <div id="page3-projects">
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>NotifAI</h2>
-                    </div>
+                <div class="list-item"
+                    data-title="NotifAI"
+                    data-tag="Notification-as-a-Service platform"
+                    data-year="2025"
+                    data-tech="React, JS, Node, Express, Sequelize, PostgreSQL, REST API"
+                    data-video="/NotifAi-Demo.mkv"
+                    data-poster="/media/notifai-poster.jpg"
+                    data-b1="Role-based inbox shipped in under 12 weeks; codebase + docs cut ramp-up from days to hours"
+                    data-b2="Calendar reminders, hover previews, multi-window compose, snack-bar alerts"
+                    data-repo="https://github.com/shalomjaison/NotifAI"
+                    data-live="">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>NotifAI</h2></div>
                 </div>
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>Message Analyzer</h2>
-                    </div>
+              
+                <div class="list-item"
+                    data-title="Message Analyzer"
+                    data-tag="LLM-powered forensic evidence extraction"
+                    data-year="2025"
+                    data-tech="Python, Flask-ML, Mistral 7B, Gemma 3, LLM"
+                    data-video="/MessageAnalyzer-Demo.mp4"
+                    data-poster="/media/message-analyzer.jpg"
+                    data-b1="Recall improved ~35% on 200-chat benchmark via few-shot prompt design"
+                    data-b2="Parser converts raw outputs into schema-locked CSV/TXT/XLSX for investigators"
+                    data-repo="https://github.com/mohanasrujana/Message-Analyser"
+                    data-live="">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>Message Analyzer</h2></div>
                 </div>
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>Sundown Studio Clone</h2>
-                    </div>
+              
+                <div class="list-item"
+                    data-title="Sundown Studio (clone)"
+                    data-tag="Pixel-perfect GSAP motion; smooth scroll"
+                    data-year="2025"
+                    data-tech="Vanilla JS, GSAP, LocomotiveScroll, Swiper.js, HTML5, CSS3"
+                    data-video="/SundownDemo.mkv"
+                    data-poster="/media/sundown.jpg"
+                    data-b1="GSAP + LocomotiveScroll for 60fps scroll-linked animations; prevented layout shifts"
+                    data-b2="Hover-follow image reveal, vertical carousel text, custom grab cursor"
+                    data-repo="https://github.com/shalomjaison/sundown-studio"
+                    data-live="https://shalomjaison.github.io/sundown-studio/">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>Sundown Studio Clone</h2></div>
                 </div>
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>Two Good Clone</h2>
-                    </div>
+              
+                <div class="list-item"
+                    data-title="Two Good (clone)"
+                    data-tag="Awwwards-style landing with micro-interactions"
+                    data-year="2025"
+                    data-tech="Vanilla JS, GSAP, LocomotiveScroll, HTML5, CSS3"
+                    data-video="/TwoGoodDemo.mkv"
+                    data-poster="/media/twogood.jpg"
+                    data-b1="ScrollTrigger parallax and reveal animations with polished micro-interactions"
+                    data-b2="Device-optimized layouts for desktop, tablet, and mobile"
+                    data-repo="https://github.com/shalomjaison/two-good"
+                    data-live="https://shalomjaison.github.io/two-good/">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>Two Good Clone</h2></div>
                 </div>
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>LeapDrive</h2>
-                    </div>
+              
+                <div class="list-item"
+                    data-title="LeapDrive"
+                    data-tag="Controllable jumping robot (Physical Computing)"
+                    data-year="2023"
+                    data-tech="Arduino, C, 3D Printing, Soldering, Circuitry"
+                    data-poster="/LeapDrive.png"
+                    data-b1="Arduino-powered jumping robot inspired by Chrome Dino Run"
+                    data-b2="Hands-on build integrating mechanical, electrical, and software design"
+                    data-repo="https://github.com/shalomjaison/LeapDrive"
+                    data-article="https://www.umass.edu/gateway/research/stories/hands-on-lesson-diy-physical-computing">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>LeapDrive</h2></div>
                 </div>
-                <div class="list-item">
-                    <div class="overlay"></div>
-                    <div class="project">
-                        <h2>Robotic Path Planning with TLA</h2>
+              
+                <div class="list-item"
+                    data-title="Robotic Path Planning with TLA+"
+                    data-tag="Formal specification & verification of robotic navigation (Research)"
+                    data-year="2025"
+                    data-tech="Python, TLA+"
+                    data-poster="/URV Poster.png"
+                    data-b1="Verified safety and liveness properties with the TLA+ model checker"
+                    data-b2="Bridged formal specification with Python simulations for real-world applicability"
+                    data-repo="https://docs.google.com/presentation/d/1R2by9_EadLjWdELSAOo3PLvO2TShOmiLuHqkjqg_5RI/edit?usp=sharing"
+                    data-live="">
+                  <div class="overlay"></div>
+                  <div class="project"><h2>Robotic Path Planning with TLA+</h2></div>
+                </div>
+              </div>
+              
+            <div id="hover-card" aria-hidden="true">
+                <div class="hc-media">
+                </div>
+                
+                <div class="hc-body">
+                    <h3 id="hc-title"></h3>
+                    <p id="hc-tag" class="hc-tag"></p>
+                
+                    <div class="hc-meta">
+                    <span class="hc-chip" id="hc-year"></span>
+                    <span class="hc-dot">•</span>
+                    <span class="hc-chip" id="hc-tech"></span>
                     </div>
+                
+                    <ul class="hc-bullets">
+                    <li id="hc-b1"></li>
+                    <li id="hc-b2"></li>
+                    </ul>
+                
+                    <a id="hc-cta" class="hc-cta" href="#" tabindex="-1"></a>
                 </div>
             </div>
             <div id="moving-text">
@@ -193,7 +267,8 @@
                 </div>
             </div>
         </div>
-        <div id="page4"></div>
+    </div>
+    <div id="page4"></div>
     </div>
     <div id="footer">
         <div id="hero-6">
@@ -225,7 +300,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MorphSVGPlugin.min.js"></script>
-
+    <script src="https://unpkg.com/gsap@3.12.5/dist/Observer.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.8/dist/lenis.css">
     <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.js"></script>
     <script src="test.js"></script>

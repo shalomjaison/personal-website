@@ -67,7 +67,7 @@ function initSmoothScrolling() {
 
 // ===== PARALLAX EFFECTS =====
 function initParallaxEffects() {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, Observer);
 
     // Intro section parallax
     gsap.to("#intro", {
@@ -339,6 +339,251 @@ function initFloatingFooter(){
   floatIt("#hero-6", 6);
 }
 
+// ===== HOVER CARD =====
+function initHoverCard(){
+    function showCard(){
+        hoverCard.classList.add('visible')
+        const v = hoverCard.querySelector('video');
+         if (v) v.play();
+    }
+
+    function hideCard(){
+        hoverCard.classList.remove('visible');
+        const v = hoverCard.querySelector('video');
+        if (v) v.pause()
+    }
+
+    const projectSection = document.getElementById("page3-projects");
+    const hoverCard = document.getElementById("hover-card");
+    const mediaMount = hoverCard.querySelector('.hc-media');
+    const panelLock = false;
+    const hc = {
+        title: hoverCard.querySelector('#hc-title'),
+        tag: hoverCard.querySelector('#hc-tag'),
+        year: hoverCard.querySelector('#hc-year'),
+        tech: hoverCard.querySelector('#hc-tech'),
+        b1: hoverCard.querySelector('#hc-b1'),
+        b2: hoverCard.querySelector('#hc-b2'),
+        cta: hoverCard.querySelector('#hc-cta'),
+    }
+
+    hoverCard.addEventListener('mouseenter', () => {
+        panelLock = true;
+    });
+
+    hoverCard.addEventListener('mouseleave', () => {
+        panelLock = false;
+    });
+
+    projectSection.addEventListener('mouseleave', () => {
+        if(!hoverCard.matches(':hover')) hideCard();
+    });
+
+    hoverCard.addEventListener('mouseleave', () => {
+        if(!projectSection.matches(':hover')) hideCard();
+    });
+
+    function showVideo(src) {
+        mediaMount.innerHTML = '';
+        const v = document.createElement('video');
+        v.src = src;
+        v.muted = true;
+        v.autoplay = true;
+        v.loop = true;
+        v.playbackRate = 1.2;
+        v.playsInline = true;
+        v.style.width = '100%';
+        v.style.height = '100%';
+        v.style.objectFit = 'cover';
+        v.style.objectPosition = 'center';
+        v.style.borderRadius = '10px';
+        mediaMount.appendChild(v);
+    }
+
+    function showImage(src, alt=''){
+        mediaMount.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = alt;
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.objectPosition = 'center';
+        img.style.borderRadius = '10px';
+        mediaMount.appendChild(img);
+    }
+    function populateFrom(project){
+        const title  = project.dataset.title || '';
+        const tag = project.dataset.tag || '';
+        const year = project.dataset.year || '';
+        const tech = project.dataset.tech || '';
+        const b1 = project.dataset.b1 || '';
+        const b2 = project.dataset.b2 || '';
+
+        const live = project.dataset.live;
+        if (live) {
+            hc.cta.href = live;
+            hc.cta.textContent = 'View Live Site';
+            hc.cta.target = '_blank';
+            hc.cta.rel = 'noopener';
+            hc.cta.style.display = 'block';
+            hc.cta.setAttribute('tabindex','0');
+        }
+
+        const article = project.dataset.article;
+        if (article) {
+            hc.cta.href = article;
+            hc.cta.textContent = 'View Article';
+            hc.cta.target = '_blank';
+            hc.cta.rel = 'noopener';
+            hc.cta.style.display = 'block';
+            hc.cta.setAttribute('tabindex','0');
+        }
+        if (!live && !article) {
+            hc.cta.style.display = 'none';
+            hc.cta.setAttribute('tabindex','-1');
+        }
+
+        const poster = project.dataset.poster || '';
+        const video = project.dataset.video;
+
+        if (video) {
+            showVideo(video);
+        } else if (poster) {
+            showImage(poster, `${title} preview`);
+        } else {
+            mediaMount.innerHTML = '';
+        }
+
+        hc.title.textContent = title;
+        hc.tag.textContent = tag;
+        hc.year.textContent = year;
+        hc.tech.textContent = tech;
+        hc.b1.textContent = b1;
+        hc.b2.textContent = b2;
+
+    }
+    // let hoverTimer = null;
+    // function withIntent(fn){
+    //     clearTimeout(hoverTimer);
+    //     hoverTimer = setTimeout(fn, 110); 
+    // }
+
+    const projects = document.querySelectorAll(".list-item");
+    projects.forEach((project) => {
+        project.addEventListener('mouseenter', () => {
+            if (panelLock) return;
+            populateFrom(project);
+            showCard();
+            // withIntent(() => {
+            //   if (panelLock) return; 
+            // });
+          });
+        const openPrimary = () => {
+            const repo   = project.dataset.repo;
+            if (repo) window.open(repo, '_blank', 'noopener');
+        };
+        project.addEventListener('click', openPrimary);
+        project.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPrimary(); }
+        });
+    })
+}
+
+// function initHoverCard(){
+//     const hoverCard = document.getElementById("hover-card");
+//     const mediaMount = hoverCard.querySelector('.hc-media');
+//     const hc = {
+//         title: document.getElementById('hc-title'),
+//         tag:   document.getElementById('hc-tag'),
+//         year:  document.getElementById('hc-year'),
+//         tech:  document.getElementById('hc-tech'),
+//         b1:    document.getElementById('hc-b1'),
+//         b2:    document.getElementById('hc-b2'),
+//         cta:   document.getElementById('hc-cta'),
+//     };
+
+//     const projects = document.querySelectorAll(".list-item");
+//     projects.forEach((project) => {
+//         project.addEventListener('mouseenter', (e) => {
+//             populateFrom(project);
+//             showCard();
+//         });
+//         project.addEventListener('mouseleave', () => {
+//             hideCard();
+//         });
+
+//     });
+
+//     function showImage(src, alt=''){
+//         mediaMount.innerHTML = '';
+//         const img = document.createElement('img');
+//         img.src = src;
+//         img.alt = alt;
+//         img.style.width = '100%';
+//         img.style.height = '100%';
+//         img.style.objectFit = 'cover';
+//         mediaMount.appendChild(img);
+//     }
+    
+//     function showCard(){ hoverCard.classList.add('is-visible'); const v = hoverCard.querySelector('video'); if (v) v.play(); }
+//     function hideCard(){ const v = hoverCard.querySelector('video'); if (v) v.pause(); hoverCard.classList.remove('is-visible'); }
+    
+//     function populateFrom(project){
+//         const title  = project.dataset.title || '';
+//         const poster = project.dataset.poster || project.dataset.img || '';
+//         const video  = project.dataset.video;
+
+//         if (video) {
+//             showVideo(video, poster);                 // video wins, poster as placeholder
+//         } else if (poster) {
+//             showImage(poster, `${title} preview`);    // fallback to image
+//         } else {
+//             mediaMount.innerHTML = '';                // nothing to show
+//         }
+    
+//         hc.title.textContent = project.dataset.title || '';
+//         hc.tag.textContent = project.dataset.tag || '';
+//         hc.year.textContent = project.dataset.year || '';
+//         hc.tech.textContent = project.dataset.tech || '';
+//         hc.b1.textContent = project.dataset.b1 || '';
+//         hc.b2.textContent = project.dataset.b2 || '';
+    
+//         const live = project.dataset.live;
+//         if (live) {
+//             hc.cta.href = live;
+//             hc.cta.textContent = 'View Live Site';
+//             hc.cta.target = '_blank';
+//             hc.cta.rel = 'noopener';
+//             hc.cta.style.display = 'block';
+//             hc.cta.setAttribute('tabindex','0');
+//         }
+//         else {
+//             hc.cta.style.display = 'none';
+//             hc.cta.setAttribute('tabindex','-1');
+//             }
+//     }
+
+//     function showVideo(src, poster='') {
+//         mediaMount.innerHTML = '';
+//         const v = document.createElement('video');
+//         v.src = src;
+//         if (poster) v.poster = poster;     // first paint while decoding
+//         v.muted = true;                     // required for autoplay
+//         v.autoplay = true;
+//         v.loop = true;
+//         v.playsInline = true;               // iOS: no full-screen hijack
+//         v.controls = false;                 // you can enable on dwell if you want
+//         v.preload = 'metadata';             // light; upgrade to 'auto' later if needed
+//         v.style.width = '100%';
+//         v.style.height = '100%';
+//         v.style.objectFit = 'cover';
+//         mediaMount.appendChild(v);
+//       }
+    
+// }
+
+
 
 
 
@@ -352,6 +597,7 @@ function init() {
     initScrollTriggers();
     scrambleProjects();
     initFloatingFooter();
+    initHoverCard();
 }
 
 // ===== START EVERYTHING =====

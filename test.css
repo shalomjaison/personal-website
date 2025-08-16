@@ -502,9 +502,10 @@ html, body {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     cursor: pointer;
     transition: all 0.3s ease;
+    padding-left: 2.5vw;
 }
 
 .list-item:hover .overlay{
@@ -529,6 +530,110 @@ html, body {
 .list-item:nth-child(6) {
     border-bottom: 2px solid black;
 }
+
+#hover-card{
+    position: fixed;           /* docked, not following */
+    right: 3vw;
+    top: 10vw;               
+    width: clamp(340px, 36vw, 560px);
+    max-height: 72vh;          /* prevents runaway height */
+    overflow: hidden;
+    border-radius: 1vw;
+    background: rgba(255,255,255,0.86);
+    backdrop-filter: blur(0.5vw) saturate(1.05);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    opacity: 0; 
+    pointer-events: none; 
+    transform: translateY(1vw);
+    transition: opacity .22s ease, transform .22s ease;
+    z-index: 50;
+  }
+  
+#hover-card.visible{ 
+    opacity:1; 
+    pointer-events:auto; 
+    transform: translateY(0); 
+}
+  
+  /* media should look intentional and roomy */
+.hc-media{ 
+    aspect-ratio: 16/9; 
+    overflow: hidden; 
+    background: #e9edf0; 
+    border-radius: 1vw;
+    position: relative;
+}
+.hc-media img, .hc-media video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+.hc-media:hover img, .hc-media:hover video { transform: scale(1.01); }
+
+.hc-body{ padding: 14px 16px 16px; }
+  
+#hc-title{ 
+    /* font-family: "Mozilla Headline", sans-serif; */
+    font-family: "Roboto Slab", serif;
+    font-weight: 700; 
+    line-height: 1.15; 
+    margin: 0.5vw 0 0.5vw; 
+    font-size: 1.5vw;
+}
+.hc-tag{ 
+    opacity: 1;
+    color: black; 
+    margin: 0 0 0.5vw; 
+    font-size: 1vw;
+    font-family: "Roboto Slab", serif;
+}
+.hc-meta{ 
+    display:flex; 
+    gap:0.5vw; 
+    align-items:center; 
+    font-size: 1vw; 
+    margin-bottom:0.5vw; 
+    font-family: "Roboto Slab", serif;
+}
+
+.hc-chip{ 
+    background: rgba(0, 0, 0, 0.171); 
+    padding:.2rem .6rem; 
+    border-radius:999px; 
+    font-size: 1vw;
+    font-family: "Roboto Slab", serif;
+}
+
+.hc-bullets{ 
+    margin:0.5vw 0 1vw; 
+    padding-left:1.2vw; 
+    font-size: 1vw;
+    font-family: "Roboto Slab", serif;
+}
+
+#hc-cta {
+    text-decoration: none;
+    color: black;
+    font-size: 1vw;
+    background: #c9d3d6;
+    border-radius: 50vw;
+    margin-right: 26vw;
+    padding: 0.5vw 0.5vw;
+    font-family: "Roboto Slab", serif;
+    transition: all 0.2s ease-in-out;
+    transform: translateY(0.1vw);
+}
+
+#hc-cta:hover {
+    transition: all 0.2s ease-in-out;
+    transform: translateY(-0.1vw) scale(1.01);
+    background: #a9cbc4d2;
+}
+
+
+  
 #page4 {
     min-height: 95vh;
     width: 100%;
@@ -543,7 +648,7 @@ html, body {
     width: calc(100% - 20vw); 
     margin-left: 10vw;
     margin-right: 10vw;
-    margin-bottom: 5vw;
+    margin-bottom: 3vw;
 }
 
 #footer {
