@@ -20,7 +20,6 @@ html, body {
     height: 100%;
     overflow-x: hidden;
     background-color: var(--charcoal);
-    cursor: url('cursor.ani'), auto;
 } 
 
 #loading-screen {
