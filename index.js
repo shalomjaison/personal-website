@@ -1,3 +1,8 @@
+// Add this function to check screen size
+function isMobile() {
+    return window.innerWidth <= 768; // Match your CSS media query
+}
+
 // ===== LOADING SCREEN ANIMATIONS =====
 function initLoadingScreen() {
     const loading_texts = document.querySelectorAll(".hello-text");
@@ -40,8 +45,8 @@ function initLoadingScreen() {
     tl.to({}, { duration: 0.5 });
 
     // Slide "Shalom" left & fade in "Jaison"
-    tl.from("#first-name", { x: "9.1vw", duration: 2, ease: "power2.out" });
-    tl.from("#last-name", { opacity: 0, x: "10vw", duration: 2}, "<+0.1");
+    tl.from("#first-name", { x: isMobile() ? "19vw" : "9.1vw", duration: 2, ease: "power2.out" });
+    tl.from("#last-name", { opacity: 0, x: isMobile() ? "12vw" : "10vw", duration: 2}, "<+0.1");
 
     // Fade in titles one by one
     tl.from("#roles h2", {
@@ -76,7 +81,7 @@ function initParallaxEffects() {
 
     // Intro section parallax
     gsap.to("#intro", {
-        y: "10vh",
+        y: isMobile() ? "2vh" : "10vh",
         ease: "none",
         scrollTrigger: {
             trigger: "#intro",
@@ -88,7 +93,7 @@ function initParallaxEffects() {
 
     // Roles parallax
     gsap.to('#roles', {
-        y: "-28vh",
+        y: isMobile() ? "-15vh" : "-28vh",
         ease: "none",
         scrollTrigger: {
             trigger: "#main",
@@ -99,23 +104,40 @@ function initParallaxEffects() {
     });
 
     // Hero shape parallax
-    gsap.fromTo('#hero-shape', {
-        width: "35vw",
-        height: "15vw",
-        left: "33%",
-        top: "3%",
-    }, {
-        width: "100vw",
-        height: "100vw",
-        left: "0%",
-        top: "0%",
-        scrollTrigger: {
-            trigger: "#intro",
-            start: "top top",
-            end: "70% top",
-            scrub: 1,
-        }
-    });
+    if (!isMobile()) {
+        gsap.fromTo('#hero-shape', {
+            width: "35vw",
+            height: "15vw",
+            left: "33%",
+            top: "3%",
+        }, {
+            width: "100vw",
+            height: "100vw",
+            left: "0%",
+            top: "0%",
+            scrollTrigger: {
+                trigger: "#intro",
+                start: "top top",
+                end: "70% top",
+                scrub: 1,
+            }
+        });
+    } else {
+        gsap.fromTo('#hero-shape', {
+            scale: 0.25,
+            opacity: 0.5,
+        }, {
+            scale: 2,
+            opacity: 1,
+            scrollTrigger: {
+                trigger: "#intro",
+                start: "top top",
+                end: "bottom top",
+                scrub: 1,
+            },
+            overwrite: "auto"
+        });
+    }
 }
 
 // ===== STAR FIELD GENERATION =====
