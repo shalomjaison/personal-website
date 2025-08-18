@@ -6,23 +6,23 @@ function initLoadingScreen() {
 
     loading_texts.forEach((text, i) => {
         // Start with scale 0
-        gsap.set(text, { scale: 0, opacity: 0 });
+        gsap.set(text, { scale: 0.98, opacity: 0 });
         
         // Elastic pop in
         tl.to(text, { 
             scale: 1, 
             opacity: 1, 
-            duration: 0.3,
-            ease: "elastic.out(1, 0.95)" 
-        }, i * 0.2);
+            duration: 0.2,
+            ease: "power3.out" // ← Much better performance, still snappy
+        }, i * 0.17);
         
         if(text.id !== 'shalom'){
             // Quick fade out with scale down
             tl.to(text, { 
-                scale: 0.9, 
+                scale: 1, 
                 opacity: 0, 
                 duration: 0.1
-            }, i * 0.2 + 0.2);
+            }, i * 0.17 + 0.18); // ← Change to match the IN timing
         }
     });
 
@@ -55,15 +55,20 @@ function initLoadingScreen() {
 
 // ===== SMOOTH SCROLLING =====
 function initSmoothScrolling() {
-  const lenis = new Lenis();
-
-  // GSAP drives Lenis for perfect sync
-  gsap.ticker.add((t) => lenis.raf(t * 1000));
-  gsap.ticker.lagSmoothing(0);
-
-  // Keep ScrollTrigger updated
-  lenis.on('scroll', ScrollTrigger.update);
+    // no scrollerProxy, no rAF loop – just ONE driver
+    const lenis = new Lenis({ lerp: 0.15, smoothWheel: true });
+  
+    gsap.ticker.add((t) => lenis.raf(t * 1000));   // single driver
+    // do NOT call gsap.ticker.lagSmoothing(0)
+    // (leave default smoothing or omit entirely)
+  
+    // keep ScrollTrigger in sync with Lenis
+    lenis.on('scroll', ScrollTrigger.update);
+  
+    // expose for quick sanity checks
+    window.lenis = lenis;
 }
+  
 
 // ===== PARALLAX EFFECTS =====
 function initParallaxEffects() {
@@ -140,31 +145,8 @@ function createStars() {
 }
 
 function initStarParallax() {
-    // True parallax effect - move stars at different speeds based on size
-    gsap.to('.star.small', {
-        y: "-40vh", // Far stars move slower
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#main",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-        }
-    });
-
-    gsap.to('.star.medium', {
-        y: "-60vh", // Medium stars move faster
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#main",
-            start: "top top",
-            end: "bottom top",
-            scrub: 1,
-        }
-    });
-
-    gsap.to('.star.large', {
-        y: "-100vh", // Close stars move fastest
+    gsap.to('.stars-container', {
+        '--star-offset': '-100vh', // This moves all stars
         ease: "none",
         scrollTrigger: {
             trigger: "#main",
@@ -246,117 +228,95 @@ function initScrollTriggers() {
     });
     
 }
-// global flag so we can stop scrambling once #page3 is fully in view
-let stopScramble = false;
 
-function scrambleProjects() {
-  const projects = document.querySelectorAll(".project");
-  const h2s = [];
-
-  projects.forEach((project, i) => {
-    const h2 = project.querySelector("h2");
-    if (!h2) return;
-
-    const finalText = h2.textContent;
-    h2.dataset.finalText = finalText; // for later finalize
-    h2s.push(h2);
-
-    const poolBase = finalText.toLowerCase().replace(/[^a-z]/g, "");
-    const pool = poolBase.length ? poolBase : "abcdefghijklmnopqrstuvwxyz";
-    const isFixed = (ch) => /\s|[^A-Za-z]/.test(ch);
-
-    let lastTick = 0;
-    const isLast = i === projects.length - 1;
-
-    ScrollTrigger.create({
-      trigger: project,
-      start: "top 90%",
-      // last project finishes early (shorter range)
-      end: isLast ? "top 5%" : "bottom 20%",
-      scrub: 1,
-      // markers: true,
-      onUpdate(self) {
-        if (stopScramble) { h2.textContent = finalText; return; }
-
-        // accelerate reveal for the last card so it completes earlier
-        const prog = isLast ? Math.min(1, self.progress * 1.8) : self.progress;
-
-        const now = performance.now();
-        if (now - lastTick < 40) return; // ~25fps throttle
-        lastTick = now;
-
-        const reveal = Math.floor(prog * finalText.length);
-
-        let out = "";
-        for (let j = 0; j < finalText.length; j++) {
-          const ch = finalText[j];
-          if (j < reveal || isFixed(ch)) out += ch;
-          else out += pool[(Math.random() * pool.length) | 0];
-        }
-        h2.textContent = out;
-      },
-      onLeave() { h2.textContent = finalText; },
-      onLeaveBack() { if (!stopScramble) h2.textContent = finalText; },
+function revealProjectsWithScramble() {
+    const projects = document.querySelectorAll(".project");
+  
+    projects.forEach((project, i) => {
+      const h2 = project.querySelector("h2");
+      if (!h2) return;
+  
+      const finalText = h2.textContent;
+      
+      // Start with random characters
+      h2.textContent = ' '.repeat(finalText.length);
+      
+      ScrollTrigger.create({
+        trigger: project,
+        start: "top 80%",
+        onEnter: () => {
+          // One-time custom scramble reveal - completely free!
+          const scrambleDuration = 1.5;
+          const scrambleInterval = 50; // 50ms between each character reveal
+          const totalSteps = Math.ceil(scrambleDuration * 1000 / scrambleInterval);
+          let currentStep = 0;
+          
+          const scrambleTimer = setInterval(() => {
+            currentStep++;
+            const progress = currentStep / totalSteps;
+            const revealCount = Math.floor(progress * finalText.length);
+            
+            // Build the revealed text with some random characters
+            let revealedText = '';
+            for (let j = 0; j < finalText.length; j++) {
+              if (j < revealCount) {
+                revealedText += finalText[j];
+              } else {
+                // Add random scramble characters
+                const scrambleChars = finalText;
+                revealedText += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+              }
+            }
+            
+            h2.textContent = revealedText;
+            
+            // Stop when complete
+            if (currentStep >= totalSteps) {
+              clearInterval(scrambleTimer);
+              h2.textContent = finalText; // Ensure final text is perfect
+            }
+          }, scrambleInterval);
+        },
+        once: true // Only trigger once
+      });
     });
-  });
-
-  // As soon as #page3 hits the viewport top, stop all scrambling & lock final text
-  ScrollTrigger.create({
-    trigger: "#page3",
-    start: "top -5%",
-    // start: "bottom 96%",
-    onEnter: () => {
-      stopScramble = true;
-      h2s.forEach(h2 => (h2.textContent = h2.dataset.finalText));
-    },
-    onLeaveBack: () => { // allow scrambling again only when scrolling above #page3
-      stopScramble = false;
-    }
-  });
-}
-
+  }
 // ===== FLOATING EFFECTS =====
 function initFloatingFooter(){
     function floatIt(el, intensity = 1) {
-        // position float
+        const randomX = gsap.utils.random(-5, 5) * intensity;
+        const randomY = gsap.utils.random(-6, 6) * intensity;
+        const randomRotX = gsap.utils.random(-0.3, 0.3) * intensity;
+        const randomRotY = gsap.utils.random(-3, 3) * intensity;
+        const duration = gsap.utils.random(2, 4);
+        
+        // Use pre-calculated values instead of function calls
         gsap.to(el, {
-            x: () => gsap.utils.random(-5, 5) * intensity,
-            y: () => gsap.utils.random(-6, 6) * intensity,
-            rotationX: () => gsap.utils.random(-0.3, 0.3) * intensity,
-            rotationY: () => gsap.utils.random(-3, 3) * intensity,
-            duration: () => gsap.utils.random(2, 4),
+            x: randomX,
+            y: randomY,
+            rotationX: randomRotX,
+            rotationY: randomRotY,
+            duration: duration,
             ease: "sine.inOut",
             yoyo: true,
             repeat: -1
         });
     }
 
-  // -------- Apply floats
-  floatIt("#footer-upper h1", 1.2);
-  floatIt("#footer-upper p", 0.8);
-  let footerButtons = document.querySelector("#footer-bottom");
-  floatIt(footerButtons, 3);
-  floatIt("#hero-6", 6);
+    // Apply floats with pre-calculated values
+    floatIt("#footer-upper h1", 1.2);
+    floatIt("#footer-upper p", 0.8);
+    let footerButtons = document.querySelector("#footer-bottom");
+    floatIt(footerButtons, 3);
+    floatIt("#hero-6", 6);
 }
 
 // ===== HOVER CARD =====
 function initHoverCard(){
-    function showCard(){
-        hoverCard.classList.add('visible')
-        const v = hoverCard.querySelector('video');
-         if (v) v.play();
-    }
-
-    function hideCard(){
-        hoverCard.classList.remove('visible');
-        const v = hoverCard.querySelector('video');
-        if (v) v.pause()
-    }
-
     const projectSection = document.getElementById("page3-projects");
     const hoverCard = document.getElementById("hover-card");
     const mediaMount = hoverCard.querySelector('.hc-media');
-    const panelLock = false;
+    let panelLock = false;
     const hc = {
         title: hoverCard.querySelector('#hc-title'),
         tag: hoverCard.querySelector('#hc-tag'),
@@ -365,6 +325,58 @@ function initHoverCard(){
         b1: hoverCard.querySelector('#hc-b1'),
         b2: hoverCard.querySelector('#hc-b2'),
         cta: hoverCard.querySelector('#hc-cta'),
+    }
+    
+    const videoElem = hoverCard.querySelector('#hc-video');
+    const imgElem = document.createElement('img');
+    imgElem.style.width = '100%';
+    imgElem.style.height = '100%';
+    imgElem.style.objectFit = 'cover';
+    imgElem.style.objectPosition = 'center';
+    imgElem.style.borderRadius = '10px';
+    
+    function setChild(node){
+        if (mediaMount.firstChild !== node) {
+          mediaMount.textContent = '';
+          mediaMount.appendChild(node);
+        }
+      }
+      
+    function mountVideo(src, poster){
+        setChild(videoElem);
+        if (poster) videoElem.poster = poster;
+        
+        // Only change src if it's different (prevents unnecessary reloads)
+        if (videoElem.src !== src) { 
+            videoElem.preload = 'metadata'; 
+            videoElem.src = src; 
+        }
+        
+        videoElem.loop = true; 
+        videoElem.playbackRate = 1.2;
+        videoElem.play().catch(()=>{});
+    }
+    
+    function clearVideo() {
+        videoElem.pause();
+        videoElem.removeAttribute('src');
+        videoElem.load();
+    }
+    
+    function showImage(src, alt=''){
+        clearVideo();
+        imgElem.src = src; imgElem.alt = alt;
+        setChild(imgElem);
+    }
+
+    function showCard(){
+        hoverCard.classList.add('visible')
+        videoElem.play().catch(() => {});
+    }
+
+    function hideCard(){
+        hoverCard.classList.remove('visible');
+        clearVideo();
     }
 
     hoverCard.addEventListener('mouseenter', () => {
@@ -383,35 +395,6 @@ function initHoverCard(){
         if(!projectSection.matches(':hover')) hideCard();
     });
 
-    function showVideo(src) {
-        mediaMount.innerHTML = '';
-        const v = document.createElement('video');
-        v.src = src;
-        v.muted = true;
-        v.autoplay = true;
-        v.loop = true;
-        v.playbackRate = 1.2;
-        v.playsInline = true;
-        v.style.width = '100%';
-        v.style.height = '100%';
-        v.style.objectFit = 'cover';
-        v.style.objectPosition = 'center';
-        v.style.borderRadius = '10px';
-        mediaMount.appendChild(v);
-    }
-
-    function showImage(src, alt=''){
-        mediaMount.innerHTML = '';
-        const img = document.createElement('img');
-        img.src = src;
-        img.alt = alt;
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.style.objectPosition = 'center';
-        img.style.borderRadius = '10px';
-        mediaMount.appendChild(img);
-    }
     function populateFrom(project){
         const title  = project.dataset.title || '';
         const tag = project.dataset.tag || '';
@@ -421,38 +404,30 @@ function initHoverCard(){
         const b2 = project.dataset.b2 || '';
 
         const live = project.dataset.live;
-        if (live) {
-            hc.cta.href = live;
-            hc.cta.textContent = 'View Live Site';
-            hc.cta.target = '_blank';
-            hc.cta.rel = 'noopener';
-            hc.cta.style.display = 'block';
-            hc.cta.setAttribute('tabindex','0');
-        }
-
         const article = project.dataset.article;
-        if (article) {
-            hc.cta.href = article;
-            hc.cta.textContent = 'View Article';
-            hc.cta.target = '_blank';
-            hc.cta.rel = 'noopener';
-            hc.cta.style.display = 'block';
-            hc.cta.setAttribute('tabindex','0');
-        }
-        if (!live && !article) {
-            hc.cta.style.display = 'none';
-            hc.cta.setAttribute('tabindex','-1');
+        
+        if (live || article) {
+            hc.cta.href = live || article;
+            hc.cta.textContent = live ? 'View Live Site' : 'View Article';
+            hc.cta.target = '_blank'; hc.cta.rel = 'noopener';
+            hc.cta.style.display = 'block'; hc.cta.setAttribute('tabindex','0');
+        } else {
+            hc.cta.style.display = 'none'; hc.cta.setAttribute('tabindex','-1');
         }
 
+        //Media
         const poster = project.dataset.poster || '';
         const video = project.dataset.video;
 
+        // if (video.endsWith('.mkv')) video = video.replace(/\.mkv$/i, '.mp4');
+
         if (video) {
-            showVideo(video);
+            mountVideo(video);
         } else if (poster) {
             showImage(poster, `${title} preview`);
-        } else {
-            mediaMount.innerHTML = '';
+        } else            { 
+            clearVideo(); 
+            mediaMount.textContent = ''; 
         }
 
         hc.title.textContent = title;
@@ -462,6 +437,8 @@ function initHoverCard(){
         hc.b1.textContent = b1;
         hc.b2.textContent = b2;
 
+        // Change the attribute to trigger CSS animations
+        hoverCard.setAttribute('data-content', title[0]);
     }
     // let hoverTimer = null;
     // function withIntent(fn){
@@ -497,7 +474,9 @@ function init() {
     createStars();
     initStarParallax();
     initScrollTriggers();
-    scrambleProjects();
+    // scrambleProjects();
+    // revealProjectsProgressive();
+    revealProjectsWithScramble();
     initFloatingFooter();
     initHoverCard();
 }

@@ -12,26 +12,26 @@
 </head>
 <body>
     <div id="loading-screen">
+        <!-- <h1 class="hello-text">こんにちは</h1> -->
+        <!-- <h1 class="hello-text">안녕하세요</h1> -->
+        <!-- <h1 class="hello-text">வணக்கம்</h1> -->
+        <!-- <h1 class="hello-text">你好</h1> -->
+        <!-- <h1 class="hello-text">Привет</h1> -->
+        <!-- <h1 class="hello-text">नमस्ते</h1> -->
+        <!-- <h1 class="hello-text">നമസ്കാരം</h1> -->
+        <!-- <h1 class="hello-text">Xin chào</h1> -->
         <h1 class="hello-text">Hello</h1>
         <h1 class="hello-text">Hola</h1>
         <h1 class="hello-text">Bonjour</h1>
         <h1 class="hello-text">Ciao</h1>
         <h1 class="hello-text">Hallo</h1>
-        <h1 class="hello-text">こんにちは</h1>
-        <h1 class="hello-text">안녕하세요</h1>
-        <!-- <h1 class="hello-text">வணக்கம்</h1> -->
-        <h1 class="hello-text">你好</h1>
-        <h1 class="hello-text">Привет</h1>
-        <h1 class="hello-text">नमस्ते</h1>
         <h1 class="hello-text">Olá</h1>
-        <!-- <h1 class="hello-text">നമസ്കാരം</h1> -->
         <h1 class="hello-text">Salam</h1>
         <h1 class="hello-text">Hej</h1>
         <h1 class="hello-text">Aloha</h1>
         <h1 class="hello-text">Sawubona</h1>
         <h1 class="hello-text">Szia</h1>
         <h1 class="hello-text">Selam</h1>
-        <h1 class="hello-text">Xin chào</h1>
         <h1 class="hello-text">Yassas</h1>
         <h1 id="shalom" class="hello-text">Shalom</h1>
     </div>
@@ -98,7 +98,7 @@
                     data-tag="Notification-as-a-Service platform"
                     data-year="2025"
                     data-tech="React, JS, Node, Express, Sequelize, PostgreSQL, REST API"
-                    data-video="NotifAi-Demo.mkv"
+                    data-video="NotifAi-Demo.mp4"
                     data-poster=""
                     data-b1="Role-based inbox shipped in under 12 weeks; codebase + docs cut ramp-up from days to hours"
                     data-b2="Calendar reminders, hover previews, multi-window compose, snack-bar alerts"
@@ -128,7 +128,7 @@
                 data-tag="Pixel-perfect GSAP motion; smooth scroll"
                 data-year="2025"
                 data-tech="Vanilla JS, GSAP, LocomotiveScroll, Swiper.js, HTML5, CSS3"
-                data-video="SundownDemo.mkv"
+                data-video="SundownDemo.mp4"
                     data-poster=""
                     data-b1="GSAP + LocomotiveScroll for 60fps scroll-linked animations; prevented layout shifts"
                     data-b2="Hover-follow image reveal, vertical carousel text, custom grab cursor"
@@ -143,7 +143,7 @@
                 data-tag="Awwwards-style landing with micro-interactions"
                 data-year="2025"
                 data-tech="Vanilla JS, GSAP, LocomotiveScroll, HTML5, CSS3"
-                data-video="TwoGoodDemo.mkv"
+                data-video="TwoGoodDemo.mp4"
                 data-poster=""
                 data-b1="ScrollTrigger parallax and reveal animations with polished micro-interactions"
                 data-b2="Device-optimized layouts for desktop, tablet, and mobile"
@@ -184,6 +184,7 @@
               
             <div id="hover-card" aria-hidden="true">
                 <div class="hc-media">
+                  <video id="hc-video" preload="none" muted playsinline></video>
                 </div>
                 
                 <div class="hc-body">
@@ -299,8 +300,6 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/MorphSVGPlugin.min.js"></script>
-    <script src="https://unpkg.com/gsap@3.12.5/dist/Observer.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.8/dist/lenis.css">
     <script src="https://unpkg.com/lenis@1.3.8/dist/lenis.js"></script>
     <script src="index.js"></script>

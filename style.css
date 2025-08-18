@@ -41,12 +41,13 @@ html, body {
     position: absolute;
     opacity: 0;
     font-weight: 100;
-    font-size: 7vw;
+    font-size: 6vw;
     /* color: transparent;
     background: linear-gradient(to top,#1f7061, #2e2e2e);
     -webkit-background-clip: text; */
     color: var(--white);
     top: 30%;
+    font-family: "Playfair Display", serif;
 }
 
 #intro {
@@ -56,7 +57,8 @@ html, body {
     align-items: center;
     justify-content: center;
     color: #0f0f0fc9;
-    top: -10%;
+    top: -11%;
+    left: -0.5%;
     width: 100%;
     height: 100vh;
     opacity: 0;
@@ -95,12 +97,13 @@ html, body {
 
 #name-line {
     position: relative;
-    font-size: 7vw;
+    font-size: 6vw;
     display: flex;
     font-weight: 200;
     gap: 2vw;
     left: 1%;
     z-index: 6;
+    font-family: "Playfair Display", serif;
 }
 
 #roles {
@@ -138,6 +141,7 @@ html, body {
     border-radius: 50%;
     position: absolute;
     z-index: 4;
+    
 }
 
 #hero-2 {
@@ -173,10 +177,12 @@ html, body {
     animation-timing-function: ease-in-out;
     animation-delay: 5s;
     z-index: 4;
+    
 }
 
 
 /* New approach: CSS-generated stars */
+/* Replace your current .stars-container and .star styles with this optimized version */
 .stars-container {
     position: fixed;
     top: 0;
@@ -186,25 +192,41 @@ html, body {
     z-index: 0;
     overflow: hidden;
     background-color: var(--matte-black);
-  }
-  
-  .star {
+    /* This will be controlled by JavaScript */
+    --star-offset: 0;
+}
+
+.star {
     position: absolute;
     background: white;
     border-radius: 50%;
     animation: twinkle 3s infinite;
-  }
-  
-  
-  @keyframes twinkle {
+    /* Use CSS custom property for transform - much faster than individual GSAP */
+    transform: translateY(calc(var(--star-offset) * var(--star-speed, 1)));
+    will-change: transform;
+}
+
+/* Different star speeds for depth effect */
+.star.small { 
+    width: 0.1vw; 
+    height: 0.1vw; 
+    --star-speed: 0.4; /* Far stars move slower */
+}
+.star.medium { 
+    width: 0.15vw; 
+    height: 0.15vw; 
+    --star-speed: 0.7; /* Medium stars move medium */
+}
+.star.large { 
+    width: 0.2vw; 
+    height: 0.2vw; 
+    --star-speed: 1.0; /* Close stars move fastest */
+}
+
+@keyframes twinkle {
     0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
-  }
-  
-  /* Different star sizes for depth */
-  .star.small { width: 0.1vw; height: 0.1vw; }
-  .star.medium { width: 0.15vw; height: 0.15vw; }
-  .star.large { width: 0.2vw; height: 0.2vw; }
+}
 
 @keyframes anime1 {
     from{
@@ -317,9 +339,10 @@ html, body {
     height: 100%;
     width: 100%;
     background: linear-gradient(to top, #1f7061, #76b6ab);
-    filter: blur(5px);
     position: absolute;
     animation: morph-shape 3s linear infinite;
+    box-shadow: 0 0 20px rgba(31, 112, 97, 0.4);
+    opacity: 0.9;
 }
 
 /* Morphing shape keyframes */
@@ -336,7 +359,7 @@ html, body {
     }
     50% {
         /* Square */
-        border-radius: 0%;
+        border-radius: 5%;
         transform: rotate(180deg);
     }
     75% {
@@ -490,7 +513,7 @@ html, body {
     top: -100%;
     left: 0;
     width: 100%;
-    height: 7.7vw;
+    height: 7.5vw;
     background-color: var(--frosted-blue);
     z-index: 0;
     transition: all 0.3s ease;
@@ -547,6 +570,10 @@ html, body {
     transform: translateY(1vw);
     transition: opacity .22s ease, transform .22s ease;
     z-index: 50;
+    contain: layout paint;   /* limit repaints to the card itself */
+    will-change: transform, opacity;
+    transform: translateZ(0); /* Force hardware acceleration */
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
   
 #hover-card.visible{ 
@@ -562,12 +589,13 @@ html, body {
     background: #e9edf0; 
     border-radius: 1vw;
     position: relative;
+    transition: opacity 0.15s ease;
 }
 .hc-media img, .hc-media video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform .4s ease;
+    transition: transform 0.2s ease, opacity 0.15s ease;
 }
 .hc-media:hover img, .hc-media:hover video { transform: scale(1.01); }
 
@@ -631,6 +659,44 @@ html, body {
     background: #a9cbc4d2;
 }
 
+/* Add these new styles for buttery text animations */
+.hc-body h3, .hc-body p, .hc-body ul, .hc-body a {
+    opacity: 0;
+    transform: translateX(20px);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* When hover card is visible, animate text in */
+#hover-card.visible .hc-body h3,
+#hover-card.visible .hc-body p,
+#hover-card.visible .hc-body ul,
+#hover-card.visible .hc-body a {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Stagger the text animations for natural feel */
+#hover-card.visible .hc-body h3 { transition-delay: 0.1s; }
+#hover-card.visible .hc-body p { transition-delay: 0.15s; }
+#hover-card.visible .hc-body ul { transition-delay: 0.2s; }
+#hover-card.visible .hc-body a { transition-delay: 0.25s; }
+.hc-media {
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hc-media img, .hc-media video {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#hover-card.visible .hc-media img,
+#hover-card.visible .hc-media video {
+    opacity: 1;
+    transform: scale(1);
+}
 
   
 #page4 {
