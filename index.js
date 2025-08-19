@@ -110,11 +110,13 @@ function initParallaxEffects() {
             height: "15vw",
             left: "33%",
             top: "3%",
+            borderRadius: "50%",
         }, {
             width: "100vw",
             height: "100vw",
             left: "0%",
             top: "0%",
+            borderRadius: "0%",
             scrollTrigger: {
                 trigger: "#intro",
                 start: "top top",
@@ -124,15 +126,25 @@ function initParallaxEffects() {
         });
     } else {
         gsap.fromTo('#hero-shape', {
-            scale: 0.25,
-            opacity: 0.5,
+            width: "85vw",
+            height: "65vw",
+            left: "10%",
+            top: "15%",
+            opacity: 0.6,
+            borderRadius: "50%",
         }, {
-            scale: 2,
-            opacity: 1,
+            width: "100vw",
+            height: "120vh",
+            left: "0%",
+            top: "0%",
+            opacity: 0.7,
+            borderRadius: "0%",
             scrollTrigger: {
-                trigger: "#intro",
+                // Use the scrolling content as the trigger (intro is fixed)
+                trigger: "#main",
                 start: "top top",
-                end: "bottom top",
+                // Complete the expansion within ~80% of one viewport height
+                end: () => "+=" + Math.round(window.innerHeight * 0.25),
                 scrub: 1,
             },
             overwrite: "auto"
