@@ -21,14 +21,14 @@ function initLoadingScreen() {
             ease: "power3.out" // ← Much better performance, still snappy
         }, i * 0.17);
         
-        if(text.id !== 'shalom'){
+        // if(text.id !== 'shalom'){
             // Quick fade out with scale down
             tl.to(text, { 
                 scale: 1, 
                 opacity: 0, 
                 duration: 0.1
             }, i * 0.17 + 0.18); // ← Change to match the IN timing
-        }
+        // }
     });
 
     tl.to('#loading-screen', {opacity: 1, duration: 0.5, onComplete: () => {
