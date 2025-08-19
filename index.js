@@ -512,7 +512,7 @@ function initHoverCard(){
     const projects = document.querySelectorAll(".list-item");
     projects.forEach((project) => {
         project.addEventListener('mouseenter', () => {
-            if (panelLock) return;
+            if (panelLock || isMobile()) return; // Don't show hover card on mobile
             populateFrom(project);
             showCard();
             // withIntent(() => {
@@ -665,10 +665,7 @@ function populateMobileProjects() {
                 projectVideo.addEventListener('play', projectVideo._playHandler);
                 projectVideo.addEventListener('pause', projectVideo._pauseHandler);
                 projectVideo.addEventListener('ended', projectVideo._endedHandler);
-                
-                // Add visual indicator that video is tappable
-                projectVideo.style.cursor = 'pointer';
-                projectVideo.title = 'Tap to play/pause';
+
                 
                 // Don't autoplay - let user control it
                 // projectVideo.play().catch(() => {
