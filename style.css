@@ -522,7 +522,7 @@ html, body {
     z-index: 2;
 }
 
-.project-body, .project-media, #project-video, #project-tag, #project-year, #project-tech, .mobile-repo-btn {
+.project-body, .project-media, #project-tag, #project-year, #project-tech, .mobile-repo-btn {
     display: none;
 }
 
@@ -1112,7 +1112,7 @@ html, body {
         font-size: 7vw;
     }
 
-    .project-body, .project-media, #project-video, #project-tag, #project-year, #project-tech {
+    .project-body, .project-media, #project-tag, #project-year, #project-tech {
         display: block;
     }
 
@@ -1135,6 +1135,12 @@ html, body {
         height: auto; /* Changed from 40vh to auto - video will size to its content */
         object-fit: contain; /* Changed from cover to contain - shows entire video */
         border-radius: 10px; /* Add rounded corners */
+        cursor: pointer; /* Show it's tappable */
+        transition: transform 0.1s ease; /* Smooth transition for tap effect */
+    }
+    
+    .project-media video:active {
+        transform: scale(0.95); /* Shrink slightly when tapped */
     }
     
     .project-media img {
