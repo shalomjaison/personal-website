@@ -225,8 +225,8 @@ function initScrollTriggers() {
 
     // Separate trigger to hide footer earlier when scrolling up
     ScrollTrigger.create({
-        trigger: "#page4",
-        start: "top 30%",
+        trigger: isMobile() ? "#page3" : "#page4", // Use page3 on mobile since page4 is shorter
+        start: isMobile() ? "bottom 65%" : "top 30%", // Trigger earlier on mobile
         onEnter: () => {
             // Footer should already be visible here, do nothing
             if (footer) {
@@ -236,7 +236,7 @@ function initScrollTriggers() {
             }
         },
         onLeave: () => {
-            // Footer disappears when top of page4 hits 10% of viewport
+            // Footer disappears when scrolling up
             if (footer) {
                 gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
                 // footer.style.visibility = "hidden";
@@ -244,7 +244,7 @@ function initScrollTriggers() {
             }
         },
         onEnterBack: () => {
-            // Footer appears when scrolling back down to page4
+            // Footer appears when scrolling back down
             if (footer) {
                 footer.style.visibility = "visible";
                 gsap.to(footer, { opacity: 1, y: 0, duration: 0.8, ease: "power2.out" });
@@ -252,7 +252,7 @@ function initScrollTriggers() {
             }
         },
         onLeaveBack: () => {
-            // Footer disappears when scrolling up past 10% point
+            // Footer disappears when scrolling up past trigger point
             if (footer) {
                 gsap.to(footer, { opacity: 0, y: 50, duration: 0.8, ease: "power2.out" });
                 // footer.style.visibility = "hidden";
@@ -264,6 +264,7 @@ function initScrollTriggers() {
 }
 
 function revealProjectsWithScramble() {
+    if (isMobile()) return;
     const projects = document.querySelectorAll(".project");
   
     projects.forEach((project, i) => {
@@ -314,7 +315,7 @@ function revealProjectsWithScramble() {
         once: true // Only trigger once
       });
     });
-  }
+}
 // ===== FLOATING EFFECTS =====
 function initFloatingFooter(){
     function floatIt(el, intensity = 1) {
@@ -326,9 +327,9 @@ function initFloatingFooter(){
         
         // Use pre-calculated values instead of function calls
         gsap.to(el, {
-            x: randomX,
+            x: isMobile() ? 0 : randomX,
             y: randomY,
-            rotationX: randomRotX,
+            rotationX: isMobile() ? 0 : randomRotX,
             rotationY: randomRotY,
             duration: duration,
             ease: "sine.inOut",
@@ -337,12 +338,40 @@ function initFloatingFooter(){
         });
     }
 
-    // Apply floats with pre-calculated values
-    floatIt("#footer-upper h1", 1.2);
-    floatIt("#footer-upper p", 0.8);
-    let footerButtons = document.querySelector("#footer-bottom");
-    floatIt(footerButtons, 3);
-    floatIt("#hero-6", 6);
+    // Get all the elements first and check if they exist
+    const footerUpperH1 = document.querySelector("#footer-upper h1");
+    const footerUpperP = document.querySelector("#footer-upper p");
+    const footerBottom = document.querySelector("#footer-bottom");
+    const hero6 = document.querySelector("#hero-6");
+    
+    // Only apply floating effects if elements exist
+    if (footerUpperH1) {
+        console.log("Found footer-upper h1, applying float");
+        floatIt(footerUpperH1, 1.2);
+    } else {
+        console.log("footer-upper h1 not found");
+    }
+    
+    if (footerUpperP) {
+        console.log("Found footer-upper p, applying float");
+        floatIt(footerUpperP, 0.8);
+    } else {
+        console.log("footer-upper p not found");
+    }
+    
+    if (footerBottom) {
+        console.log("Found footer-bottom, applying float");
+        floatIt(footerBottom, 3);
+    } else {
+        console.log("footer-bottom not found");
+    }
+    
+    if (hero6) {
+        console.log("Found hero-6, applying float");
+        floatIt(hero6, 6);
+    } else {
+        console.log("hero-6 not found");
+    }
 }
 
 // ===== HOVER CARD =====
@@ -382,12 +411,14 @@ function initHoverCard(){
         
         // Only change src if it's different (prevents unnecessary reloads)
         if (videoElem.src !== src) { 
-            videoElem.preload = 'metadata'; 
+            videoElem.preload = 'metadata'; // Just load metadata, not full video
             videoElem.src = src; 
         }
         
         videoElem.loop = true; 
         videoElem.playbackRate = 1.2;
+        
+        // Desktop: autoplay on hover (original behavior)
         videoElem.play().catch(()=>{});
     }
     
@@ -453,8 +484,6 @@ function initHoverCard(){
         const poster = project.dataset.poster || '';
         const video = project.dataset.video;
 
-        // if (video.endsWith('.mkv')) video = video.replace(/\.mkv$/i, '.mp4');
-
         if (video) {
             mountVideo(video);
         } else if (poster) {
@@ -491,14 +520,177 @@ function initHoverCard(){
             // });
           });
         const openPrimary = () => {
-            const repo   = project.dataset.repo;
-            if (repo) window.open(repo, '_blank', 'noopener');
+            // Only redirect on desktop, not on mobile
+            if (!isMobile()) {
+                const repo = project.dataset.repo;
+                if (repo) window.open(repo, '_blank', 'noopener');
+            }
         };
         project.addEventListener('click', openPrimary);
         project.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openPrimary(); }
         });
     })
+}
+
+// ===== MOBILE PROJECT POPULATION =====
+function populateMobileProjects() {
+    // Only run on mobile
+    if (!isMobile()) return;
+    
+    const projects = document.querySelectorAll('.list-item');
+    
+    projects.forEach((project) => {
+        // Get all the data attributes
+        const title = project.dataset.title || '';
+        const tag = project.dataset.tag || '';
+        const year = project.dataset.year || '';
+        const tech = project.dataset.tech || '';
+        const b1 = project.dataset.b1 || '';
+        const b2 = project.dataset.b2 || '';
+        const live = project.dataset.live || '';
+        const article = project.dataset.article || '';
+        const poster = project.dataset.poster || '';
+        const video = project.dataset.video || '';
+        
+        // Find the mobile elements within this project
+        const projectTitle = project.querySelector('#project-title');
+        const projectTag = project.querySelector('#project-tag');
+        const projectYear = project.querySelector('#project-year');
+        const projectTech = project.querySelector('#project-tech');
+        const projectB1 = project.querySelector('#project-b1');
+        const projectB2 = project.querySelector('#project-b2');
+        const projectCta = project.querySelector('#project-cta');
+        const projectVideo = project.querySelector('#project-video');
+        
+        // Populate the title (this is already in the h2, but let's make sure)
+        if (projectTitle) {
+            projectTitle.textContent = title;
+        }
+        
+        // Populate the tag
+        if (projectTag) {
+            projectTag.textContent = tag;
+        }
+        
+        // Populate the year chip
+        if (projectYear) {
+            projectYear.textContent = year;
+        }
+        
+        // Populate the tech chip
+        if (projectTech) {
+            projectTech.textContent = tech;
+        }
+        
+        // Populate the bullet points
+        if (projectB1) {
+            projectB1.textContent = b1;
+        }
+        if (projectB2) {
+            projectB2.textContent = b2;
+        }
+        
+        // Set up the CTA link
+        if (projectCta) {
+            if (live || article) {
+                projectCta.href = live || article;
+                projectCta.textContent = live ? 'View Live Site' : 'View Article';
+                projectCta.target = '_blank';
+                projectCta.rel = 'noopener';
+                projectCta.style.display = 'block';
+                projectCta.setAttribute('tabindex', '0');
+            } else {
+                projectCta.style.display = 'none';
+                projectCta.setAttribute('tabindex', '-1');
+            }
+        }
+        
+        // Set up the mobile repository button
+        const mobileRepoBtn = project.querySelector('.mobile-repo-btn');
+        if (mobileRepoBtn) {
+            const repo = project.dataset.repo;
+            if (repo) {
+                mobileRepoBtn.href = repo;
+                mobileRepoBtn.style.display = 'flex';
+                mobileRepoBtn.setAttribute('tabindex', '0');
+            } else {
+                mobileRepoBtn.style.display = 'none';
+                mobileRepoBtn.setAttribute('tabindex', '-1');
+            }
+        }
+        
+        // Handle media (video or poster)
+        if (projectVideo) {
+            if (video) {
+                // Set up video for mobile - NO autoplay, tap-to-play instead
+                projectVideo.src = video;
+                projectVideo.preload = 'metadata'; // Just load metadata, not full video
+                projectVideo.loop = true;
+                projectVideo.muted = true;
+                projectVideo.playsInline = true;
+                projectVideo.style.display = 'block';
+                
+                // Remove existing event listeners to prevent duplicates
+                projectVideo.removeEventListener('click', projectVideo._clickHandler);
+                projectVideo.removeEventListener('play', projectVideo._playHandler);
+                projectVideo.removeEventListener('pause', projectVideo._pauseHandler);
+                projectVideo.removeEventListener('ended', projectVideo._endedHandler);
+                
+                // Create handler functions and store references
+                projectVideo._clickHandler = function() {
+                    if (projectVideo.paused) {
+                        projectVideo.play().catch(() => {
+                            console.log(`Could not play video for ${title}`);
+                        });
+                    } else {
+                        projectVideo.pause();
+                    }
+                };
+                
+                projectVideo._playHandler = function() {
+                    projectVideo.classList.add('playing');
+                };
+                
+                projectVideo._pauseHandler = function() {
+                    projectVideo.classList.remove('playing');
+                };
+                
+                projectVideo._endedHandler = function() {
+                    projectVideo.classList.remove('playing');
+                };
+                
+                // Add event listeners
+                projectVideo.addEventListener('click', projectVideo._clickHandler);
+                projectVideo.addEventListener('play', projectVideo._playHandler);
+                projectVideo.addEventListener('pause', projectVideo._pauseHandler);
+                projectVideo.addEventListener('ended', projectVideo._endedHandler);
+                
+                // Add visual indicator that video is tappable
+                projectVideo.style.cursor = 'pointer';
+                projectVideo.title = 'Tap to play/pause';
+                
+                // Don't autoplay - let user control it
+                // projectVideo.play().catch(() => {
+                //     console.log(`Could not autoplay video for ${title}`);
+                // });
+            } else if (poster) {
+                // Create and set poster image
+                const posterImg = document.createElement('img');
+                posterImg.src = poster;
+                posterImg.alt = `${title} preview`;
+                
+                // Replace video with poster image
+                projectVideo.style.display = 'none';
+                projectVideo.parentNode.appendChild(posterImg);
+            } else {
+                // No media available
+                projectVideo.style.display = 'none';
+            }
+        }
+        
+        console.log(`Populated mobile project: ${title} (${video ? 'video' : poster ? 'poster' : 'no media'})`);
+    });
 }
 
 function init() {
@@ -513,6 +705,7 @@ function init() {
     revealProjectsWithScramble();
     initFloatingFooter();
     initHoverCard();
+    populateMobileProjects(); // Add this line
 }
 
 // ===== START EVERYTHING =====

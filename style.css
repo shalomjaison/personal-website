@@ -487,7 +487,7 @@ html, body {
     top: -100%;
     left: 0;
     width: 100%;
-    height: 7.5vw;
+    height: 7.7vw;
     background-color: var(--frosted-blue);
     z-index: 0;
     transition: all 0.3s ease;
@@ -502,6 +502,8 @@ html, body {
     cursor: pointer;
     transition: all 0.3s ease;
     padding-left: 2.5vw;
+    position: relative;
+    z-index: 1;
 }
 
 .list-item:hover .overlay{
@@ -512,11 +514,16 @@ html, body {
     color: var(--teal);
 }
 
-.project h2 {
+.project .project-header h2 {
     font-family: "Mozilla Headline", sans-serif;
     font-size: 5vw;
     font-weight: 500;
-    z-index: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.project-body, .project-media, #project-video, #project-tag, #project-year, #project-tech, .mobile-repo-btn {
+    display: none;
 }
 
 .list-item:nth-child(even) {
@@ -615,12 +622,12 @@ html, body {
 }
 
 #hc-cta {
+    width: 30%;
     text-decoration: none;
     color: black;
     font-size: 1vw;
     background: #c9d3d6;
     border-radius: 50vw;
-    margin-right: 26vw;
     padding: 0.5vw 0.5vw;
     font-family: "Roboto Slab", serif;
     transition: all 0.2s ease-in-out;
@@ -670,6 +677,23 @@ html, body {
 #hover-card.visible .hc-media video {
     opacity: 1;
     transform: scale(1);
+}
+
+/* Hover card video styling */
+#hover-card .hc-media video {
+    transition: transform 0.2s ease-in-out;
+}
+
+#hover-card .hc-media video:hover {
+    transform: scale(1.02);
+}
+
+#hover-card .hc-media video:hover {
+    transform: scale(1.02);
+}
+
+#hover-card .hc-media video:active {
+    transform: scale(0.98);
 }
 
   
@@ -1025,58 +1049,220 @@ html, body {
     .list-item {
         position: relative;
         overflow-y: hidden;
-        border-top: 2px solid black;
-        border-bottom: 2px solid black;
+        border-top: 1px solid rgba(0, 0, 0, 0.229);
+        border-bottom: 1px solid rgba(0, 0, 0, 0.229);
         transition: all 0.3s ease;
-    }
-
-    .overlay {
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 7.5vw;
-        background-color: var(--frosted-blue);
-        z-index: 0;
-        transition: all 0.3s ease;
-    }
-
-    .project{
-        height: 7vh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        padding-left: 2.5vw;
-    }
-
-    .list-item:hover .overlay{
-        top: 0;
-    }
-
-    .list-item:hover .project{
-        color: var(--teal);
-    }
-
-    .project h2 {
-        font-family: "Mozilla Headline", sans-serif;
-        font-size: 10vw;
-        font-weight: 500;
-        z-index: 1;
-    }
-
-    .list-item:nth-child(even) {
-        border: none; /* Remove border from even-numbered projects */
-    }
-
-    .list-item:nth-child(6) {
-        border-bottom: 2px solid black;
     }
 
     #hover-card{
         display: none;
+    }
+    .overlay {
+        display: none;
+    }
+
+    .project{
+        height: auto;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* justify-content: center; */
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 3vw 5vw;
+        position: relative;
+        z-index: 1;
+        margin-top: 2vw;
+    }
+
+    .project-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0vw;
+        width: 100%;
+    }
+
+    .project-title #project-year {
+        font-size: 6vw;
+        color: rgba(0, 0, 0, 0.617)
+    }
+
+    #project-tag {
+        color: rgba(0, 0, 0, 0.767);
+        margin-top: 2vw;
+    }
+
+    #project-tech {
+        font-size: 3.5vw;
+        background: rgba(0, 0, 0, 0.171); 
+        padding: 1vw 1.5vw;
+        border-radius: 999px;
+        margin-top: 1.2vw;
+        width: 100%
+    }
+
+    .project-header {
+        width: 100%;
+    }
+
+
+    .project .project-header h2 {
+        font-size: 7vw;
+    }
+
+    .project-body, .project-media, #project-video, #project-tag, #project-year, #project-tech {
+        display: block;
+    }
+
+    .project-body {
+        font-size: 3.5vw;
+        margin-bottom: 4vw;
+    }
+
+    .project-media {
+        width: 98%; /* Reduce from 100% to 60% */
+        height: auto; /* Set a fixed height instead of 100% */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 10vw 0;
+    }
+
+    .project-media video {
+        width: 100%;
+        height: auto; /* Changed from 40vh to auto - video will size to its content */
+        object-fit: contain; /* Changed from cover to contain - shows entire video */
+        border-radius: 10px; /* Add rounded corners */
+    }
+    
+    .project-media img {
+        width: 100%;
+        height: auto;
+        object-fit: contain; /* Changed from cover to contain - shows entire image */
+        border-radius: 10px; /* Match video styling */
+    }
+    
+    #project-video {
+        padding: 0;
+        margin: 0;
+        display: inline-block;
+    }
+
+    .project-body {
+        display: flex;
+        flex-direction: column;
+        gap: 4vw;
+    }
+
+    .project-bullets {
+        display: flex;
+        flex-direction: column;
+        font-size: 4.5vw;
+        padding-left: 3.2vw;
+        gap: 2vw;
+    }
+
+    #project-cta {
+        width: 38%;
+        text-decoration: none;
+        color: black;
+        font-size: 4.2vw;
+        background: #c9d3d6;
+        border-radius: 5vw;
+        display: inline-block;
+        padding: 1.5vw 3vw;
+        font-family: "Roboto Slab", serif;
+        transition: all 0.2s ease-in-out;
+        transform: translateY(0.1vw);
+    }
+    
+    .mobile-repo-btn {
+        width: 100%;
+        text-decoration: none;
+        color: white;
+        font-size: 4vw;
+        background: #333;
+        border-radius: 5vw;
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
+        padding: 2vw 3vw;
+        font-family: "Roboto Slab", serif;
+        transition: all 0.2s ease-in-out;
+        margin-top: 3vw;
+        border: 2px solid #333;
+    }
+
+    .mobile-repo-btn i {
+        font-size: 5vw;
+    }
+
+    .list-item:nth-child(6) {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.229);
+    }
+    
+    #page4 {
+        min-height: 50vh;
+        width: 100%;
+    }
+
+    #hero-6 {
+        width: calc(100% - 6vw); 
+        margin-left: 3vw;
+        margin-right: 3vw;
+        margin-bottom: 10vw;
+    }
+
+    #footer {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #footer-upper {
+        gap: 1vw;
+        margin-bottom: 8vw;
+
+    }
+
+    #footer-upper h1 {
+        font-size: 17vw;
+        margin-left: 5vw;
+        margin-bottom: 2vw;
+    }
+
+    #footer-upper p {
+        font-size: 3.5vw;
+        padding: 0 2vw;
+    }
+
+
+    #footer-bottom {
+        gap: 1vw;
+        margin: 0 2vw;
+        margin-bottom: 3vw;
+    }
+
+    #footer-bottom .footer-btn {
+        font-size: 3vw;
+        border: 1.5px solid var(--white);
+        padding: 0.5vw 1vw;
+        border-radius: 10px;
+        gap: 3vw;
+    }
+
+    .footer-btn i{
+        width:30px; 
+        height:30px; 
+        flex:0 0 30px;
+        font-size: 6vw; 
+    }
+
+    #footer #copyright {
+        font-size: 3.5vw;
+        margin-bottom: 0vw;
     }
 }
 
