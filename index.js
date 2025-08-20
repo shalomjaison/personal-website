@@ -503,11 +503,7 @@ function initHoverCard(){
         // Change the attribute to trigger CSS animations
         hoverCard.setAttribute('data-content', title[0]);
     }
-    // let hoverTimer = null;
-    // function withIntent(fn){
-    //     clearTimeout(hoverTimer);
-    //     hoverTimer = setTimeout(fn, 110); 
-    // }
+
 
     const projects = document.querySelectorAll(".list-item");
     projects.forEach((project) => {
@@ -515,9 +511,6 @@ function initHoverCard(){
             if (panelLock || isMobile()) return; // Don't show hover card on mobile
             populateFrom(project);
             showCard();
-            // withIntent(() => {
-            //   if (panelLock) return; 
-            // });
           });
         const openPrimary = () => {
             // Only redirect on desktop, not on mobile
@@ -668,11 +661,7 @@ function populateMobileProjects() {
                 projectVideo.addEventListener('pause', projectVideo._pauseHandler);
                 projectVideo.addEventListener('ended', projectVideo._endedHandler);
 
-                
-                // Don't autoplay - let user control it
-                // projectVideo.play().catch(() => {
-                //     console.log(`Could not autoplay video for ${title}`);
-                // });
+
             } else if (poster) {
                 // Create and set poster image
                 const posterImg = document.createElement('img');
@@ -699,12 +688,10 @@ function init() {
     createStars();
     initStarParallax();
     initScrollTriggers();
-    // scrambleProjects();
-    // revealProjectsProgressive();
     revealProjectsWithScramble();
     initFloatingFooter();
     initHoverCard();
-    populateMobileProjects(); // Add this line
+    populateMobileProjects(); 
 }
 
 // ===== START EVERYTHING =====

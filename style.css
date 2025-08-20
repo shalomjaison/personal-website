@@ -1,4 +1,4 @@
-/* Color Palette Variables */
+
 :root {
     --beige: #f5f0eb;
     --charcoal: #2e2e2e;
@@ -30,7 +30,6 @@ html, body {
     align-items: center;
     justify-content: center;
     position: relative;
-    /* overflow: hidden; */
     top: 0;
     position: fixed;
     transition: all ease 2s;
@@ -42,9 +41,6 @@ html, body {
     opacity: 0;
     font-weight: 100;
     font-size: 6vw;
-    /* color: transparent;
-    background: linear-gradient(to top,#1f7061, #2e2e2e);
-    -webkit-background-clip: text; */
     color: var(--white);
     top: 30%;
     font-family: "Playfair Display", serif;
@@ -98,13 +94,11 @@ html, body {
     height: 35vw;
     width: 50vw;
     border-radius: 50%;
-    /* border: 1px solid saddlebrown; */
     left: 22%;
     top: 3%;
     z-index: 4;
     opacity: 0.7;
-    max-width: 100vw; /* prevent horizontal overflow when animated */
-    /* overflow: hidden;  */
+    max-width: 100vw;
 }
 
 #hero-1 {
@@ -155,8 +149,6 @@ html, body {
 }
 
 
-/* New approach: CSS-generated stars */
-/* Replace your current .stars-container and .star styles with this optimized version */
 .stars-container {
     position: fixed;
     top: 0;
@@ -166,7 +158,6 @@ html, body {
     z-index: 0;
     overflow: hidden;
     background-color: var(--matte-black);
-    /* This will be controlled by JavaScript */
     --star-offset: 0;
 }
 
@@ -175,12 +166,10 @@ html, body {
     background: white;
     border-radius: 50%;
     animation: twinkle 3s infinite;
-    /* Use CSS custom property for transform - much faster than individual GSAP */
     transform: translateY(calc(var(--star-offset) * var(--star-speed, 1)));
     will-change: transform;
 }
 
-/* Different star speeds for depth effect */
 .star.small { 
     width: 0.1vw; 
     height: 0.1vw; 
@@ -269,7 +258,6 @@ html, body {
     letter-spacing: -0.07vw;
     font-family: "Playfair Display", serif;
     font-weight: 100;
-    color: var(--intro-highlight-text); /* Light Blue for heading */
 }
 
 #page2 .content p {
@@ -278,7 +266,6 @@ html, body {
     font-size: 1.5vw;
     font-family: "Roboto Slab", serif;
     font-weight: 100;
-    color: var(--text-primary);
 }
 
 #stat3 {
@@ -319,7 +306,6 @@ html, body {
     opacity: 0.9;
 }
 
-/* Morphing shape keyframes */
 @keyframes morph-shape {
     0% {
         /* Circle */
@@ -375,7 +361,6 @@ html, body {
 #tech-skills {
     display: flex;
     align-items: center;
-    /* justify-content: space-around; */
     margin-top: 3vw;
     margin-left: 2.7vw;
     gap: 2vw;
@@ -527,7 +512,7 @@ html, body {
 }
 
 .list-item:nth-child(even) {
-    border: none; /* Remove border from even-numbered projects */
+    border: none; 
 }
 
 .list-item:nth-child(6) {
@@ -535,11 +520,11 @@ html, body {
 }
 
 #hover-card{
-    position: fixed;           /* docked, not following */
+    position: fixed;       
     right: 3vw;
     top: 10vw;               
     width: clamp(340px, 36vw, 560px);
-    max-height: 72vh;          /* prevents runaway height */
+    max-height: 72vh;  
     overflow: hidden;
     border-radius: 1vw;
     background: rgba(255,255,255,0.86);
@@ -562,8 +547,7 @@ html, body {
     pointer-events:auto; 
     transform: translateY(0); 
 }
-  
-  /* media should look intentional and roomy */
+
 .hc-media{ 
     aspect-ratio: 16/9; 
     overflow: hidden; 
@@ -583,7 +567,6 @@ html, body {
 .hc-body{ padding: 14px 16px 16px; }
   
 #hc-title{ 
-    /* font-family: "Mozilla Headline", sans-serif; */
     font-family: "Roboto Slab", serif;
     font-weight: 700; 
     line-height: 1.15; 
@@ -640,7 +623,7 @@ html, body {
     background: #a9cbc4d2;
 }
 
-/* Add these new styles for buttery text animations */
+
 .hc-body h3, .hc-body p, .hc-body ul, .hc-body a {
     opacity: 0;
     transform: translateX(20px);
@@ -648,7 +631,6 @@ html, body {
                 transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* When hover card is visible, animate text in */
 #hover-card.visible .hc-body h3,
 #hover-card.visible .hc-body p,
 #hover-card.visible .hc-body ul,
@@ -657,7 +639,6 @@ html, body {
     transform: translateX(0);
 }
 
-/* Stagger the text animations for natural feel */
 #hover-card.visible .hc-body h3 { transition-delay: 0.1s; }
 #hover-card.visible .hc-body p { transition-delay: 0.15s; }
 #hover-card.visible .hc-body ul { transition-delay: 0.2s; }
@@ -679,7 +660,6 @@ html, body {
     transform: scale(1);
 }
 
-/* Hover card video styling */
 #hover-card .hc-media video {
     transition: transform 0.2s ease-in-out;
 }
@@ -805,7 +785,6 @@ html, body {
     text-align: center;
     font-size: 1.5vw;
     font-weight: 100;
-    /* padding: 0 13vw; */
     border-top: 1px solid #ffffff2c;
     margin-bottom: 0vw;
     padding-top: 1vw;
@@ -1067,7 +1046,6 @@ html, body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* justify-content: center; */
         cursor: pointer;
         transition: all 0.3s ease;
         padding: 3vw 5vw;
@@ -1122,8 +1100,8 @@ html, body {
     }
 
     .project-media {
-        width: 98%; /* Reduce from 100% to 60% */
-        height: auto; /* Set a fixed height instead of 100% */
+        width: 98%; 
+        height: auto; 
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1132,11 +1110,11 @@ html, body {
 
     .project-media video {
         width: 100%;
-        height: auto; /* Changed from 40vh to auto - video will size to its content */
-        object-fit: contain; /* Changed from cover to contain - shows entire video */
-        border-radius: 10px; /* Add rounded corners */
-        cursor: pointer; /* Show it's tappable */
-        transition: transform 0.1s ease; /* Smooth transition for tap effect */
+        height: auto; 
+        object-fit: contain;
+        border-radius: 10px;
+        cursor: pointer; 
+        transition: transform 0.1s ease; 
     }
     
     .project-media video:active {
@@ -1147,13 +1125,13 @@ html, body {
         width: 100%;
         height: auto;
         object-fit: contain; /* Changed from cover to contain - shows entire image */
-        border-radius: 10px; /* Match video styling */
+        border-radius: 10px;
     }
     
     #project-video {
         padding: 0;
         margin: 0;
-        display: block; /* Force display on mobile */
+        display: block;
     }
 
     .project-body {
