@@ -1,34 +1,40 @@
-// Add this function to check screen size
+// Check Screen Size
 function isMobile() {
-    return window.innerWidth <= 768; // Match your CSS media query
+    return window.innerWidth <= 768;
 }
 
 // ===== LOADING SCREEN ANIMATIONS =====
 function initLoadingScreen() {
     const loading_texts = document.querySelectorAll(".hello-text");
-    const shalom = document.getElementById("shalom");
     const tl = gsap.timeline({defaults: {duration: 0.5, ease: 'power2.out'}});
 
     loading_texts.forEach((text, i) => {
         // Start with scale 0
         gsap.set(text, { scale: 0.98, opacity: 0 });
         
-        // Elastic pop in
         tl.to(text, { 
             scale: 1, 
             opacity: 1, 
             duration: 0.2,
-            ease: "power3.out" // ← Much better performance, still snappy
+            ease: "power3.out"
         }, i * 0.17);
         
-        // if(text.id !== 'shalom'){
-            // Quick fade out with scale down
+        if(isMobile()){
+            if(text.id !== 'shalom'){
+                tl.to(text, { 
+                    scale: 1, 
+                    opacity: 0, 
+                    duration: 0.1
+                }, i * 0.17 + 0.18);
+            }
+        }
+        else{
             tl.to(text, { 
                 scale: 1, 
                 opacity: 0, 
                 duration: 0.1
-            }, i * 0.17 + 0.18); // ← Change to match the IN timing
-        // }
+            }, i * 0.17 + 0.18);
+        }
     });
 
     tl.to('#loading-screen', {opacity: 1, duration: 0.5, onComplete: () => {
@@ -64,13 +70,9 @@ function initSmoothScrolling() {
     const lenis = new Lenis({ lerp: 0.15, smoothWheel: true });
   
     gsap.ticker.add((t) => lenis.raf(t * 1000));   // single driver
-    // do NOT call gsap.ticker.lagSmoothing(0)
-    // (leave default smoothing or omit entirely)
   
     // keep ScrollTrigger in sync with Lenis
     lenis.on('scroll', ScrollTrigger.update);
-  
-    // expose for quick sanity checks
     window.lenis = lenis;
 }
   
@@ -140,10 +142,8 @@ function initParallaxEffects() {
             opacity: 0.7,
             borderRadius: "0%",
             scrollTrigger: {
-                // Use the scrolling content as the trigger (intro is fixed)
                 trigger: "#main",
                 start: "top top",
-                // Complete the expansion within ~80% of one viewport height
                 end: () => "+=" + Math.round(window.innerHeight * 0.25),
                 scrub: 1,
             },
@@ -630,6 +630,8 @@ function populateMobileProjects() {
                 projectVideo.muted = true;
                 projectVideo.playsInline = true;
                 projectVideo.style.display = 'block';
+
+                projectVideo.load();
                 
                 // Remove existing event listeners to prevent duplicates
                 projectVideo.removeEventListener('click', projectVideo._clickHandler);
