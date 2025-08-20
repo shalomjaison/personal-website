@@ -625,7 +625,7 @@ function populateMobileProjects() {
             if (video) {
                 // Set up video for mobile - NO autoplay, tap-to-play instead
                 projectVideo.src = video;
-                projectVideo.preload = 'metadata'; // Just load metadata, not full video
+                projectVideo.preload = 'auto'; // Load full video content, not just metadata
                 projectVideo.loop = true;
                 projectVideo.muted = true;
                 projectVideo.playsInline = true;
