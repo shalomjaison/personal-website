@@ -39,7 +39,7 @@ function initLoadingScreen() {
 
     tl.to('#loading-screen', {opacity: 1, duration: 0.5, onComplete: () => {
         document.getElementById('loading-screen').style.opacity = 0;
-    }}, loading_texts.length * 0.2 + 0.3);
+    }}, loading_texts.length * 0.17 );
 
     tl.to('#loading-screen', {delay: 1, onComplete: () => {
         document.getElementById('loading-screen').style.display = "none";
@@ -48,20 +48,25 @@ function initLoadingScreen() {
     tl.to('#intro', { opacity: 1, duration: 0.3 }, loading_texts.length * 0.3);
 
     // Pause slightly
-    tl.to({}, { duration: 0.5 });
+    // tl.to({}, { duration: 0.5 });
 
     // Slide "Shalom" left & fade in "Jaison"
-    tl.from("#first-name", { x: isMobile() ? "19vw" : "9.1vw", duration: 2, ease: "power2.out" });
+    tl.from("#first-name", { x: isMobile() ? "19vw" : "9.1vw", duration: 1.5, ease: "power2.out" });
     tl.from("#last-name", { opacity: 0, x: isMobile() ? "12vw" : "10vw", duration: 2}, "<+0.1");
 
     // Fade in titles one by one
     tl.from("#roles h2", {
         opacity: 0,
         y: 20,
-        duration: 2,
+        duration: 0.7,
         stagger: 0.5,
         ease: "power2.out"
     });
+
+    tl.fromTo("#tech-stack span",
+        { opacity: 0, y: 12},
+        { opacity: 0.6, y: 0, duration: 0.7, ease: "power2.out", stagger: { each: 0.08, from: "start" }}
+    );
 }
 
 // ===== SMOOTH SCROLLING =====
@@ -105,6 +110,17 @@ function initParallaxEffects() {
         }
     });
 
+    gsap.to('#tech-stack', {
+        y: isMobile() ? "-15vh" : "-35vh",
+        ease: "none",
+        scrollTrigger: {
+            trigger: "#main",
+            start: "top top",
+            end: "bottom top",
+            scrub: 1,
+        }
+    });
+
     // Hero shape parallax
     if (!isMobile()) {
         gsap.fromTo('#hero-shape', {
@@ -135,17 +151,19 @@ function initParallaxEffects() {
             opacity: 0.6,
             borderRadius: "50%",
         }, {
-            width: "100vw",
-            height: "120vh",
+            width: "95vw",
+            height: "90vh",
             left: "0%",
             top: "0%",
             opacity: 0.7,
             borderRadius: "0%",
+            ease: "none",
             scrollTrigger: {
                 trigger: "#main",
                 start: "top top",
-                end: () => "+=" + Math.round(window.innerHeight * 0.25),
-                scrub: 1,
+                end: () => "+=" + Math.round(window.innerHeight * 0.4),
+                scrub: 0.8,
+                refreshPriority: -1,
             },
             overwrite: "auto"
         });
@@ -196,6 +214,7 @@ function initScrollTriggers() {
     // Set initial state - footer should be hidden initially
     const footer = document.getElementById("footer");
     const roles = document.getElementById("roles");
+    const techStack = document.getElementById("tech-stack");
     
     if (footer) {
         footer.style.visibility = "hidden"; // Keep visible for GSAP to animate
@@ -204,22 +223,28 @@ function initScrollTriggers() {
     if (roles) {
         roles.style.visibility = "visible"; // Keep visible for GSAP to animate
     }
-    
+    if (techStack) {
+        techStack.style.visibility = "visible"; // Keep visible for GSAP to animate
+    }
     // Hide roles when on page4
     ScrollTrigger.create({
-        trigger: "#page4",
-        start: "top center",
+        trigger: "#page2",
+        start: "top 30%",
         onEnter: () => {
             if (roles) roles.style.visibility = "hidden";
+            if (techStack) techStack.style.visibility = "hidden";
         },
         onLeave: () => {
-            if (roles) roles.style.visibility = "visible";
+            if (roles) roles.style.visibility = "hidden";
+            if (techStack) techStack.style.visibility = "hidden";
         },
         onEnterBack: () => {
             if (roles) roles.style.visibility = "hidden";
+            if (techStack) techStack.style.visibility = "hidden";
         },
         onLeaveBack: () => {
             if (roles) roles.style.visibility = "visible";
+            if (techStack) techStack.style.visibility = "visible";
         }
     });
 
@@ -277,7 +302,7 @@ function revealProjectsWithScramble() {
       h2.textContent = ' '.repeat(finalText.length);
       
       ScrollTrigger.create({
-        trigger: project,
+        trigger: "#page3-projects",
         start: "top 80%",
         onEnter: () => {
           // One-time custom scramble reveal - completely free!
@@ -292,7 +317,7 @@ function revealProjectsWithScramble() {
             const revealCount = Math.floor(progress * finalText.length);
             
             // Build the revealed text with some random characters
-            let revealedText = '';
+            let revealedText ='';
             for (let j = 0; j < finalText.length; j++) {
               if (j < revealCount) {
                 revealedText += finalText[j];

@@ -59,7 +59,8 @@ html, body {
     height: 100vh;
     opacity: 0;
     z-index: 5;
-    gap: 1.5vw;
+    gap: 0vw;
+    transition: all 0.5s ease-in-out;
 }
 
 
@@ -79,14 +80,40 @@ html, body {
     align-items: center;
     justify-content: center;
     position: relative;
-    gap: 5vw;
+    gap: 2vw;
     color: var(--frosted-blue);
-    z-index: 6;
+    z-index: 10;
+    left: 1%;
+    margin-top: 0.9vw;
+    opacity: 0.8;
 }
 
 #roles h2 {
-  font-size: 1vw;
+  font-size: 1.2vw;
   font-weight: 100;
+}
+
+#tech-stack {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    color: var(--frosted-blue);
+    margin-top: 2vw;
+    position: relative;
+    left: 1%;
+    z-index: 6;
+}
+
+#tech-stack span {
+    opacity: 0;
+    font-size: 0.8vw;
+    font-weight: 100;
+    background: rgba(0, 0, 0, 0.171); 
+    padding: 0.5vw 1vw;
+    border-radius: 300px;
+    display: inline-block; /* enable transform animations */
+    transition: background 0.2s ease-in-out; /* avoid fighting GSAP */
 }
 
 #hero-shape {
@@ -215,11 +242,11 @@ html, body {
 }
 
 #page1 {
-    min-height: 100vh;
+    min-height: 90vh;
     width: 100%;
     position: relative;
     border-radius: 15px;
-
+    z-index: 0;
 }
 
 #page2 {
@@ -798,7 +825,7 @@ html, body {
     }
     
     #intro {
-        top: -18%;
+        top: -19%;
         left: -0.5%;
         height: 100vh;
         gap: 1.5vw;
@@ -818,11 +845,32 @@ html, body {
       font-size: 3vw;
     }
     
+    #tech-stack {
+        width: 60%;
+        gap: 2vw;
+        flex-wrap: wrap;
+        margin-top: 4vw;
+    }
+
+    #tech-stack span {
+        opacity: 0;
+        font-size: 3vw;
+        font-weight: 100;
+        background: rgba(0, 0, 0, 0.171); 
+        padding: 0.5vw 1vw;
+        border-radius: 300px;
+        display: block; 
+        transition: background 0.2s ease-in-out;
+    }
+
+    
     #hero-shape {
         height: 90vw;
         width: 105vw;
         left: 0%;
         top: 10%;
+        will-change: width, height, left, top, border-radius;
+        transform: translateZ(0);
     }
 
 
