@@ -19,7 +19,7 @@ function initLoadingScreen() {
             ease: "power3.out"
         }, i * 0.17);
         
-        if(isMobile()){
+        if(!isMobile()){
             if(text.id !== 'shalom'){
                 tl.to(text, { 
                     scale: 1, 
