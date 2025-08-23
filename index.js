@@ -65,7 +65,7 @@ function initLoadingScreen() {
 
     tl.fromTo("#tech-stack span",
         { opacity: 0, y: 12},
-        { opacity: 0.6, y: 0, duration: 0.7, ease: "power2.out", stagger: { each: 0.08, from: "start" }}
+        { opacity: 0.8, y: 0, duration: 0.7, ease: "power2.out", stagger: { each: 0.08, from: "start" }}
     );
 }
 
@@ -215,6 +215,7 @@ function initScrollTriggers() {
     const footer = document.getElementById("footer");
     const roles = document.getElementById("roles");
     const techStack = document.getElementById("tech-stack");
+    const nameLine = document.getElementById("name-line");
     
     if (footer) {
         footer.style.visibility = "hidden"; // Keep visible for GSAP to animate
@@ -226,6 +227,9 @@ function initScrollTriggers() {
     if (techStack) {
         techStack.style.visibility = "visible"; // Keep visible for GSAP to animate
     }
+    if (nameLine) {
+        nameLine.style.visibility = "visible"; // Keep visible for GSAP to animate
+    }
     // Hide roles when on page4
     ScrollTrigger.create({
         trigger: "#page2",
@@ -233,18 +237,22 @@ function initScrollTriggers() {
         onEnter: () => {
             if (roles) roles.style.visibility = "hidden";
             if (techStack) techStack.style.visibility = "hidden";
+            if (nameLine) nameLine.style.visibility = "hidden";
         },
         onLeave: () => {
             if (roles) roles.style.visibility = "hidden";
             if (techStack) techStack.style.visibility = "hidden";
+            if (nameLine) nameLine.style.visibility = "hidden";
         },
         onEnterBack: () => {
             if (roles) roles.style.visibility = "hidden";
             if (techStack) techStack.style.visibility = "hidden";
+            if (nameLine) nameLine.style.visibility = "hidden";
         },
         onLeaveBack: () => {
             if (roles) roles.style.visibility = "visible";
             if (techStack) techStack.style.visibility = "visible";
+            if (nameLine) nameLine.style.visibility = "visible";
         }
     });
 
