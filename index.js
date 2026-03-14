@@ -176,24 +176,26 @@ function createStars() {
     starsContainer.className = 'stars-container';
     document.body.appendChild(starsContainer);
 
-    // Generate 200 stars
+    // Generate 200 stars using DocumentFragment (1 DOM insertion instead of 200)
+    const fragment = document.createDocumentFragment();
+    const sizes = ['small', 'medium', 'large'];
     for (let i = 0; i < 200; i++) {
         const star = document.createElement('div');
         star.className = 'star';
-        
+
         // Random position
         star.style.left = Math.random() * 100 + '%';
         star.style.top = Math.random() * 100 + '%';
-        
+
         // Random size for depth effect
-        const sizes = ['small', 'medium', 'large'];
         star.classList.add(sizes[Math.floor(Math.random() * sizes.length)]);
-        
+
         // Random animation delay
         star.style.animationDelay = Math.random() * 3 + 's';
-        
-        starsContainer.appendChild(star);
+
+        fragment.appendChild(star);
     }
+    starsContainer.appendChild(fragment);
 }
 
 function initStarParallax() {
@@ -313,37 +315,35 @@ function revealProjectsWithScramble() {
         trigger: "#page3-projects",
         start: "top 80%",
         onEnter: () => {
-          // One-time custom scramble reveal - completely free!
-          const scrambleDuration = 1.5;
-          const scrambleInterval = 50; // 50ms between each character reveal
-          const totalSteps = Math.ceil(scrambleDuration * 1000 / scrambleInterval);
-          let currentStep = 0;
-          
-          const scrambleTimer = setInterval(() => {
-            currentStep++;
-            const progress = currentStep / totalSteps;
+          // One-time custom scramble reveal using rAF (synced to display refresh)
+          const scrambleDuration = 1500; // ms
+          const startTime = performance.now();
+          let rafId;
+
+          function scrambleFrame(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / scrambleDuration, 1);
             const revealCount = Math.floor(progress * finalText.length);
-            
-            // Build the revealed text with some random characters
-            let revealedText ='';
+
+            let revealedText = '';
             for (let j = 0; j < finalText.length; j++) {
               if (j < revealCount) {
                 revealedText += finalText[j];
               } else {
-                // Add random scramble characters
-                const scrambleChars = finalText;
-                revealedText += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                revealedText += finalText[Math.floor(Math.random() * finalText.length)];
               }
             }
-            
+
             h2.textContent = revealedText;
-            
-            // Stop when complete
-            if (currentStep >= totalSteps) {
-              clearInterval(scrambleTimer);
-              h2.textContent = finalText; // Ensure final text is perfect
+
+            if (progress < 1) {
+              rafId = requestAnimationFrame(scrambleFrame);
+            } else {
+              h2.textContent = finalText;
             }
-          }, scrambleInterval);
+          }
+
+          rafId = requestAnimationFrame(scrambleFrame);
         },
         once: true // Only trigger once
       });
@@ -413,6 +413,8 @@ function initHoverCard(){
     const hoverCard = document.getElementById("hover-card");
     const mediaMount = hoverCard.querySelector('.hc-media');
     let panelLock = false;
+    let activeProject = null;
+    let hoverTimeout = null;
     const hc = {
         title: hoverCard.querySelector('#hc-title'),
         tag: hoverCard.querySelector('#hc-tag'),
@@ -458,7 +460,6 @@ function initHoverCard(){
     function clearVideo() {
         videoElem.pause();
         videoElem.removeAttribute('src');
-        videoElem.load();
     }
     
     function showImage(src, alt=''){
@@ -468,11 +469,12 @@ function initHoverCard(){
     }
 
     function showCard(){
-        hoverCard.classList.add('visible')
-        videoElem.play().catch(() => {});
+        hoverCard.classList.add('visible');
     }
 
     function hideCard(){
+        clearTimeout(hoverTimeout);
+        activeProject = null;
         hoverCard.classList.remove('visible');
         clearVideo();
     }
@@ -486,6 +488,7 @@ function initHoverCard(){
     });
 
     projectSection.addEventListener('mouseleave', () => {
+        clearTimeout(hoverTimeout);
         if(!hoverCard.matches(':hover')) hideCard();
     });
 
@@ -541,9 +544,14 @@ function initHoverCard(){
     const projects = document.querySelectorAll(".list-item");
     projects.forEach((project) => {
         project.addEventListener('mouseenter', () => {
-            if (panelLock || isMobile()) return; // Don't show hover card on mobile
-            populateFrom(project);
-            showCard();
+            if (panelLock || isMobile()) return;
+            clearTimeout(hoverTimeout);
+            if (project === activeProject) return; // already showing this project
+            hoverTimeout = setTimeout(() => {
+                activeProject = project;
+                populateFrom(project);
+                showCard();
+            }, 80);
           });
         const openPrimary = () => {
             // Only redirect on desktop, not on mobile

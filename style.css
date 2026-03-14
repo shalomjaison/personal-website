@@ -88,6 +88,7 @@ html, body {
     left: 1%;
     margin-top: 0.9vw;
     opacity: 0.8;
+    will-change: transform;
 }
 
 #roles h2 {
@@ -107,6 +108,7 @@ html, body {
     z-index: 6;
     flex-wrap: wrap;
     width: 35%;
+    will-change: transform;
 }
 
 #tech-stack span {
@@ -146,7 +148,7 @@ html, body {
 #hero-2 {
     height: 30vw;
     width: 30vw;
-    background: linear-gradient( #60c1b1, #76b6ab); 
+    background: linear-gradient( #60c1b1, #76b6ab);
     border-radius: 50%;
     filter: blur(20px);
     position: absolute;
@@ -158,12 +160,13 @@ html, body {
     animation-direction: alternate-reverse;
     animation-timing-function: ease-in-out;
     z-index: 4;
+    will-change: transform;
 }
 
 #hero-3 {
     height: 30vw;
     width: 30vw;
-    background: linear-gradient( #60c1b1, #76b6ab); 
+    background: linear-gradient( #60c1b1, #76b6ab);
     border-radius: 50%;
     filter: blur(20px);
     position: absolute;
@@ -176,7 +179,7 @@ html, body {
     animation-timing-function: ease-in-out;
     animation-delay: 5s;
     z-index: 4;
-    
+    will-change: transform;
 }
 
 
@@ -496,18 +499,19 @@ html, body {
     overflow-y: hidden;
     border-top: 2px solid black;
     border-bottom: 2px solid black;
-    transition: all 0.3s ease;
 }
 
 .overlay {
     position: absolute;
-    top: -100%;
+    top: 0;
     left: 0;
     width: 100%;
     height: 7.7vw;
     background-color: var(--frosted-blue);
     z-index: 0;
-    transition: all 0.3s ease;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    will-change: transform;
 }
 
 .project{
@@ -517,14 +521,14 @@ html, body {
     align-items: center;
     /* justify-content: center; */
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     padding-left: 2.5vw;
     position: relative;
     z-index: 1;
 }
 
 .list-item:hover .overlay{
-    top: 0;
+    transform: translateY(0);
 }
 
 .list-item:hover .project{
@@ -552,26 +556,23 @@ html, body {
 }
 
 #hover-card{
-    position: fixed;       
+    position: fixed;
     right: 3vw;
-    top: 10vw;               
+    top: 10vw;
     width: clamp(340px, 36vw, 560px);
-    max-height: 72vh;  
+    max-height: 72vh;
     overflow: hidden;
     border-radius: 1vw;
-    background: rgba(255,255,255,0.86);
-    backdrop-filter: blur(0.5vw) saturate(1.05);
+    background: rgb(242, 246, 247);
     border: 1px solid rgba(0,0,0,0.08);
     box-shadow: 0 12px 30px rgba(0,0,0,0.12);
-    opacity: 0; 
-    pointer-events: none; 
+    opacity: 0;
+    pointer-events: none;
     transform: translateY(1vw);
-    transition: opacity .22s ease, transform .22s ease;
-    z-index: 50;
-    contain: layout paint;   /* limit repaints to the card itself */
-    will-change: transform, opacity;
-    transform: translateZ(0); /* Force hardware acceleration */
     transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 50;
+    contain: layout paint;
+    will-change: transform, opacity;
   }
   
 #hover-card.visible{ 
@@ -644,8 +645,8 @@ html, body {
     background: #c9d3d6;
     border-radius: 50vw;
     padding: 0.5vw 0.5vw;
-    /* font-family: "Roboto Slab", serif; */    
-    transition: all 0.2s ease-in-out;
+    /* font-family: "Roboto Slab", serif; */
+    transition: background 0.2s ease, transform 0.2s ease;
     transform: translateY(0.1vw);
 }
 
@@ -1083,7 +1084,6 @@ html, body {
         overflow-y: hidden;
         border-top: 1px solid rgba(0, 0, 0, 0.229);
         border-bottom: 1px solid rgba(0, 0, 0, 0.229);
-        transition: all 0.3s ease;
     }
 
     #hover-card{
